@@ -14,7 +14,9 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
+        <a href="./index.html">
         <img class="logo navbar-brand" src="./Imagenes/logoGalileo.png"></img>
+        </a>
           <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
           </button>
@@ -111,7 +113,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center align-items-center">
-                <button type="button" class="mayuscula btn btn-primary " data-bs-toggle="modal" data-bs-target="#example" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important;">
+                <button id="btnAñadirSeccion" type="button" class="mayuscula btn btn-primary " data-bs-toggle="modal" data-bs-target="#example" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important;">
                     Añadir Seccion
                   </button>
                   
@@ -184,6 +186,29 @@
             </div>
         </div>
     </footer>
+
+    <!-- Agrega este script al final de tu archivo HTML -->
+    <script>
+        // Verificar si el usuario es superadministrador o administrador
+        // Puedes establecer estas variables desde PHP si prefieres
+        var esSuperadmin = false; // Cambia a true si el usuario es superadministrador
+        var esAdmin = false; // Cambia a true si el usuario es administrador
+
+        // Función para mostrar u ocultar botones de acuerdo al rol
+        function mostrarBotones() {
+            var btnAñadirSeccion = document.getElementById('btnAñadirSeccion');
+            if (esSuperadmin) {
+                // Si es superadministrador, mostrar el botón de añadir sección
+                btnAñadirSeccion.style.display = 'block';
+            } else if (esAdmin) {
+                // Si es administrador, ocultar el botón de añadir sección
+                btnAñadirSeccion.style.display = 'none';
+            }
+        }
+
+        // Llamar a la función al cargar la página
+        window.onload = mostrarBotones;
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./crearseccion.js"></script>
