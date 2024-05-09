@@ -1,5 +1,8 @@
 <?php
 include('check.php');
+
+$estado = "error"; // Por defecto, el estado es "error"
+
 if(isset($_POST['submit'])) {
     $user  = $_POST['username'];
     $password = $_POST['password'];
@@ -18,14 +21,17 @@ if(isset($_POST['submit'])) {
         $row = $result->fetch_assoc();
         $rol = $row['rol'];
         if ($rol == 'superadministrador') {
-            header('Location: ../dashboard.html'); // Redirigir a dashboard para superadministradores
+            $estado = true; // Redirigir a dashboard para superadministradores
         } elseif ($rol == 'administrador') {
-            header('Location: ../dashboard.html'); // Redirigir a categorias para administradores
+            $estado = false; // Redirigir a categorias para administradores
         } else {
-            header('Location: ../categorias.html'); // Redirigir a página de inicio de sesión si el rol no está definido o es otro
+            $estado = "error"; // Si el rol no está definido o es otro, estado es "error"
         }
     } else {
-        header('Location: ../categorias.html'); // Redirigir a página de inicio de sesión si las credenciales son incorrectas
+        $estado = "error"; // Si las credenciales son incorrectas, estado es "error"
     }
 }
+
+// Enviar el estado como respuesta JSON
+echo json_encode(array("estado" => $estado));
 ?>

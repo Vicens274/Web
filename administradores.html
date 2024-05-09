@@ -9,7 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="icon" href="./Imagenes/favicon.png" type="image/png" sizes="16x16">
-
+    <style>
+        .ocultar-menu {
+          display: none;
+        }
+    </style>
+ 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
@@ -25,7 +30,7 @@
                 <li class="nav-item">
                     <a class="menu nav-link" href="./index.html">Inicio</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item ocultar-menu">
                     <a class="menu nav-link"  aria-current="page" href="./categorias.html">Categorías</a>
                   </li>   
                   <li class="nav-item">
@@ -59,7 +64,7 @@
     <div class="padding-abajo"  style="margin-top: 2em !important;">
         <div class="row justify-content-center"  style="--bs-gutter-x: 0 !important;">
             <div class="col-12 col-md-9" id="sectionContainer">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
                     <div class="col">
                         <a href="./categorias/Admins/primerospasos.html" style="text-decoration: none !important;">
                         <div class="card h-100">
@@ -187,27 +192,46 @@
         </div>
     </footer>
 
-    <!-- Agrega este script al final de tu archivo HTML -->
     <script>
-        // Verificar si el usuario es superadministrador o administrador
-        // Puedes establecer estas variables desde PHP si prefieres
-        var esSuperadmin = false; // Cambia a true si el usuario es superadministrador
-        var esAdmin = false; // Cambia a true si el usuario es administrador
-
-        // Función para mostrar u ocultar botones de acuerdo al rol
+        var esSuperadmin = false;
+        var esAdmin = false;
+    
+        function verificarPermisos() {
+            var usuario = document.getElementById('username').value; // Obtener el nombre de usuario del formulario
+            var contraseña = document.getElementById('password').value; // Obtener la contraseña del formulario
+    
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "./añadir/login.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    var estado = respuesta.estado;
+    
+                    if (estado === true) {
+                        esSuperadmin = true;
+                    } else if (estado === false) {
+                        esAdmin = true;
+                    }
+                    mostrarBotones();
+                }
+            };
+            xhr.send("username=" + usuario + "&password=" + contraseña);
+        }
+    
         function mostrarBotones() {
             var btnAñadirSeccion = document.getElementById('btnAñadirSeccion');
             if (esSuperadmin) {
-                // Si es superadministrador, mostrar el botón de añadir sección
                 btnAñadirSeccion.style.display = 'block';
             } else if (esAdmin) {
-                // Si es administrador, ocultar el botón de añadir sección
                 btnAñadirSeccion.style.display = 'none';
             }
         }
-
+    
         // Llamar a la función al cargar la página
-        window.onload = mostrarBotones;
+        window.onload = function() {
+            // Puedes omitir esta parte si no necesitas realizar la verificación al cargar la página
+        };
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
