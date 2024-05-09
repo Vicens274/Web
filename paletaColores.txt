@@ -1,0 +1,17 @@
+General:
+    - Fuente: Roboto Condensed
+    - Tamaño Títulos: 44px
+    - Tamaño Texto: 14px
+    - Color texto: #fffff
+    - Color primario: #3552A6
+    - Color secundario: rgba(255,255,255,0.3)
+    - Color terciario: #db4437
+
+
+Botones:
+    - Fondo: #6BE5DA
+    - Texto: #3552A6
+    - Borde: 4px
+
+
+
