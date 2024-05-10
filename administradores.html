@@ -192,48 +192,6 @@
         </div>
     </footer>
 
-    <script>
-        var esSuperadmin = false;
-        var esAdmin = false;
-    
-        function verificarPermisos() {
-            var usuario = document.getElementById('username').value; // Obtener el nombre de usuario del formulario
-            var contraseña = document.getElementById('password').value; // Obtener la contraseña del formulario
-    
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "./añadir/login.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var respuesta = JSON.parse(xhr.responseText);
-                    var estado = respuesta.estado;
-    
-                    if (estado === true) {
-                        esSuperadmin = true;
-                    } else if (estado === false) {
-                        esAdmin = true;
-                    }
-                    mostrarBotones();
-                }
-            };
-            xhr.send("username=" + usuario + "&password=" + contraseña);
-        }
-    
-        function mostrarBotones() {
-            var btnAñadirSeccion = document.getElementById('btnAñadirSeccion');
-            if (esSuperadmin) {
-                btnAñadirSeccion.style.display = 'block';
-            } else if (esAdmin) {
-                btnAñadirSeccion.style.display = 'none';
-            }
-        }
-    
-        // Llamar a la función al cargar la página
-        window.onload = function() {
-            // Puedes omitir esta parte si no necesitas realizar la verificación al cargar la página
-        };
-    </script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./crearseccion.js"></script>
 </body>
