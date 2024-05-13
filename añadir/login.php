@@ -21,23 +21,26 @@ if(isset($_POST['submit'])) {
         // Obtener el rol del usuario
         $row = $result->fetch_assoc();
         $rol = $row['Rol'];
+        
         if ($rol == 'superadministrador') {
             $estado = "success"; // Redirigir a dashboard para superadministradores
-            header('Location: ../dashboard.html');
-            } elseif ($rol == 'administrador') {
+        } elseif ($rol == 'administrador') {
             $estado = "success"; // Redirigir a categorias para administradores
-            header('Location: ../dashboard.html');
-            } else {
+        } else {
             $estado = "error"; // Si el rol no está definido o es otro, estado es "error"
-            header('Location: ../categorias.html');
-
         }
     } else {
         $estado = "error"; // Si las credenciales son incorrectas, estado es "error"
-        header('Location: ../categorias.html');
     }
 }
 
-// Enviar el estado y el rol como respuesta JSON
-echo json_encode(array("estado" => $estado, "rol" => $rol));
+// Redirigir según el estado y pasar datos en la URL si no hay redirección
+if ($estado === "success" && $rol === "superadministrador") {
+    header('Location: ../dashboard.html?estado=success&rol=superadministrador');
+} elseif ($estado === "success" && $rol === "administrador") {
+    header('Location: ../dashboard.html?estado=success&rol=administrador');
+} else {
+    // No se ejecutará la redirección si hubo un error o el rol no estaba definido
+    header('Location: ../categorias.html?estado=error');
+}
 ?>
