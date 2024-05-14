@@ -1,58 +1,39 @@
-$(document).ready(function() {
+// Espera a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function () {
+    // Selecciona el botón "Añadir Pregunta"
+    var addButton = document.getElementById('crearPregunta');
 
-    localStorage.removeItem('preguntas');
+    // Añade un event listener para el clic en el botón
+    addButton.addEventListener('click', function () {
+        // Obtiene el valor de la pregunta y la descripción
+        var nombrePregunta = document.getElementById('exampleFormControlInput1').value;
+        var descripcionPregunta = tinymce.get('exampleFormControlTextarea1').getContent();
+        console.log(descripcionPregunta); 
 
+        // Crea un nuevo elemento de acordeón
+        var newItem = document.createElement('div');
+        newItem.classList.add('accordion-item');
 
-    function agregarPreguntaAlAcordeon(nombrePregunta, descripcionPregunta, videoURL) {
-        if ($('#pregunta' + nombrePregunta.replace(/\s+/g, '')).length === 0) {
-            var nuevoTab = `
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="pregunta${nombrePregunta.replace(/\s+/g, '')}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${nombrePregunta.replace(/\s+/g, '')}" aria-expanded="false" aria-controls="collapse${nombrePregunta.replace(/\s+/g, '')}">
-                            ${nombrePregunta}
-                        </button>
-                    </h2>
-                    <div id="collapse${nombrePregunta.replace(/\s+/g, '')}" class="accordion-collapse collapse" aria-labelledby="pregunta${nombrePregunta.replace(/\s+/g, '')}" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            ${descripcionPregunta}
-                            <br>
-                            <video controls>
-                                <source src="${videoURL}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    </div>
+        // Construye el HTML interno del nuevo elemento de acordeón
+        newItem.innerHTML = `
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false">
+                    ${nombrePregunta}
+                </button>
+            </h2>
+            <div class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    ${descripcionPregunta}
                 </div>
-            `;
+            </div>
+        `;
 
-            $('#accordionExample').prepend(nuevoTab);
+        // Inserta el nuevo elemento en el acordeón
+        var accordion = document.getElementById('accordionExample');
+        accordion.appendChild(newItem);
 
-            var preguntasGuardadas = JSON.parse(localStorage.getItem('preguntas')) || [];
-            preguntasGuardadas.push({ nombre: nombrePregunta, descripcion: descripcionPregunta, video: videoURL });
-            localStorage.setItem('preguntas', JSON.stringify(preguntasGuardadas));
-        }
-    }
-
-    $('#crearPregunta').click(function(event) {
-        event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
-        var nombrePregunta = $('#exampleFormControlInput1').val();
-        var descripcionPregunta = $('#exampleFormControlTextarea1').val();
-        // Aquí obtén el video cargado
-        var videoFile = $('#videoUpload').prop('files')[0];
-        var videoURL = URL.createObjectURL(videoFile);
-     
-        agregarPreguntaAlAcordeon(nombrePregunta, descripcionPregunta, videoURL);
-
-        $('.accordion-collapse').collapse('hide');
+        // Limpia los campos después de agregar la pregunta
+        document.getElementById('exampleFormControlInput1').value = '';
+        tinymce.get('exampleFormControlTextarea1').setContent('');        
     });
-
-    function cargarPreguntasDesdeLocalStorage() {
-        var preguntasGuardadas = JSON.parse(localStorage.getItem('preguntas')) || [];
-        preguntasGuardadas.forEach(function(pregunta) {
-            agregarPreguntaAlAcordeon(pregunta.nombre, pregunta.descripcion, pregunta.video);
-        });
-    }
-
-    cargarPreguntasDesdeLocalStorage();
 });
