@@ -1,39 +1,44 @@
-// Espera a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
-    // Selecciona el botón "Añadir Pregunta"
     var addButton = document.getElementById('crearPregunta');
 
-    // Añade un event listener para el clic en el botón
     addButton.addEventListener('click', function () {
-        // Obtiene el valor de la pregunta y la descripción
         var nombrePregunta = document.getElementById('exampleFormControlInput1').value;
         var descripcionPregunta = tinymce.get('exampleFormControlTextarea1').getContent();
-        console.log(descripcionPregunta); 
+        var videoFile = document.getElementById('videoUpload').files[0]; // Obtiene el archivo de video
 
-        // Crea un nuevo elemento de acordeón
         var newItem = document.createElement('div');
         newItem.classList.add('accordion-item');
 
-        // Construye el HTML interno del nuevo elemento de acordeón
+        var newCollapseId = 'collapse' + (document.querySelectorAll('.accordion-item').length + 1);
+
+        var videoURL = ''; // Variable para guardar la URL del video
+        if (videoFile) {
+            // Si se ha seleccionado un archivo de video, crear una URL de objeto para el video
+            videoURL = URL.createObjectURL(videoFile);
+        }
+
         newItem.innerHTML = `
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${newCollapseId}" aria-expanded="false">
                     ${nombrePregunta}
                 </button>
             </h2>
-            <div class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div id="${newCollapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     ${descripcionPregunta}
+                    <video controls>
+                        <source src="${videoURL}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         `;
 
-        // Inserta el nuevo elemento en el acordeón
         var accordion = document.getElementById('accordionExample');
         accordion.appendChild(newItem);
 
-        // Limpia los campos después de agregar la pregunta
         document.getElementById('exampleFormControlInput1').value = '';
-        tinymce.get('exampleFormControlTextarea1').setContent('');        
+        tinymce.get('exampleFormControlTextarea1').setContent('');
+        document.getElementById('videoUpload').value = ''; // Limpia el input de archivo de video después de agregar la pregunta
     });
 });

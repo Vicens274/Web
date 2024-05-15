@@ -180,35 +180,37 @@
       }
     </style>
 
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> </div>
-      <div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                  <label for="videoUpload" class="form-label" >Subir video</label>
-                  <input type="file" class="form-control" id="videoUpload" >
-              </div>
-                <div class="text-center">
-                    <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
-                </div>
-            </div>
-          </div>
-        </div>
+<div class="text-center">
+  <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
+</div>
+
+<div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+          <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="videoUpload" class="form-label">Subir video</label>
+            <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
+          </div>
+          <div class="text-center">
+              <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 
       <style>
         .smaller-image {
