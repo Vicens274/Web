@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div id="${newCollapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     ${descripcionPregunta}
-                    <video controls>
+                    <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
                         <source src="${videoURL}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -42,3 +42,4 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('videoUpload').value = ''; // Limpia el input de archivo de video después de agregar la pregunta
     });
 });
+
