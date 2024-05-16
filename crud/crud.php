@@ -57,14 +57,13 @@
                                     echo "<tr>";
                                         echo "<td>" . $row['Usuario'] . "</td>";
                                         echo "<td>" . $row['Contraseña'] . "</td>";
-                                        echo "<td>" . $row['Teléfono'] . "</td>";
+                                        echo "<td>" . $row['Telefono'] . "</td>";
                                         echo "<td>" . $row['Email'] . "</td>";
                                         echo "<td>" . $row['Entidad'] . "</td>";
                                         echo "<td>" . $row['Estado'] . "</td>";
                                         echo "<td>" . $row['Rol'] . "</td>";
 
                                         echo "<td>";
-                                            echo '<a href="read.php?id='. $row['Usuario'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                             echo '<a href="update.php?id='. $row['Usuario'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                             echo '<a href="delete.php?id='. $row['Usuario'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                         echo "</td>";

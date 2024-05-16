@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($telefono_err) && empty($email_err) && empty($entidad_err) && empty($estado_err) && empty($rol_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO usuarios (Usuario, Contraseña, Telefono, Email, Entidad, Estado, Rol) VALUES (:username, :password, :telefono, :email, :entidad, :estado, :rol)";
+        $sql = "INSERT INTO administradores (Usuario, Contraseña, Telefono, Email, Entidad, Estado, Rol) VALUES (:username, :password, :telefono, :email, :entidad, :estado, :rol)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -95,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Records created successfully. Redirect to landing page
-                header("location: index.php");
+                header("location: crud.php");
                 exit();
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
