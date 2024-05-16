@@ -9,10 +9,10 @@ $usuario_err = $contraseña_err = $telefono_err = $email_err = $entidad_err = $e
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Get hidden input value
-    $id = $_POST["Username"];
+    $id = $_POST["id"];
     
     // Validate usuario
-    $input_usuario = trim($_POST["Usuario"]);
+    $input_usuario = trim($_POST["usuario"]);
     if(empty($input_usuario)){
         $usuario_err = "Please enter a username.";
     } else{
@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate contraseña
-    $input_contraseña = trim($_POST["Contraseña"]);
+    $input_contraseña = trim($_POST["contraseña"]);
     if(empty($input_contraseña)){
         $contraseña_err = "Please enter a password.";     
     } else{
@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate telefono
-    $input_telefono = trim($_POST["Telefono"]);
+    $input_telefono = trim($_POST["telefono"]);
     if(empty($input_telefono)){
         $telefono_err = "Please enter a phone number.";     
     } else{
@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate email
-    $input_email = trim($_POST["Email"]);
+    $input_email = trim($_POST["email"]);
     if(empty($input_email)){
         $email_err = "Please enter an email address.";     
     } else{
@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate entidad
-    $input_entidad = trim($_POST["Entidad"]);
+    $input_entidad = trim($_POST["entidad"]);
     if(empty($input_entidad)){
         $entidad_err = "Please enter an entity.";     
     } else{
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate estado
-    $input_estado = trim($_POST["Estado"]);
+    $input_estado = trim($_POST["estado"]);
     if(empty($input_estado)){
         $estado_err = "Please enter a state.";     
     } else{
@@ -60,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate rol
-    $input_rol = trim($_POST["Rol"]);
+    $input_rol = trim($_POST["rol"]);
     if(empty($input_rol)){
         $rol_err = "Please enter a role.";     
     } else{
@@ -70,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($usuario_err) && empty($contraseña_err) && empty($telefono_err) && empty($email_err) && empty($entidad_err) && empty($estado_err) && empty($rol_err)){
         // Prepare an update statement
-        $sql = "UPDATE administradores SET Usuario=:usuario, Contraseña=:contraseña, Telefono=:telefono, Email=:email, Entidad=:entidad, Estado=:estado, Rol=:rol WHERE Username = :Username";
+        $sql = "UPDATE administradores SET Usuario=:usuario, Contraseña=:contraseña, Telefono=:telefono, Email=:email, Entidad=:entidad, Estado=:estado, Rol=:rol WHERE id=:id";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -81,6 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->bindParam(":entidad", $param_entidad);
             $stmt->bindParam(":estado", $param_estado);
             $stmt->bindParam(":rol", $param_rol);
+            $stmt->bindParam(":id", $param_id);
             
             // Set parameters
             $param_usuario = $usuario;
@@ -90,6 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_entidad = $entidad;
             $param_estado = $estado;
             $param_rol = $rol;
+            $param_id = $id;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -109,18 +111,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     unset($pdo);
 } else{
     // Check existence of id parameter before processing further
-    if(isset($_GET["Username"]) && !empty(trim($_GET["Username"]))){
+    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         // Get URL parameter
-        $id =  trim($_GET["Username"]);
+        $id =  trim($_GET["id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM administradores WHERE Usuario = :Usuario";
+        $sql = "SELECT * FROM administradores WHERE id = :id";
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":Username", $param_username);
+            $stmt->bindParam(":id", $param_id);
             
             // Set parameters
-            $param_Username = $Username;
+            $param_id = $id;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){

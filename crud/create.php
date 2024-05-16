@@ -53,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($input_estado)){
         $estado_err = "Introduce un estado.";     
     } elseif($input_estado !== "activo" && $input_estado !== "inactivo") {
-        $estado_err = "Valor inválido. Solo puede ser 'Activo' e 'Inactivo'.";
+        $estado_err = "Valor inválido. Solo puede ser 'activo' e 'inactivo'.";
     } else{
         $estado = $input_estado;
     }
@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($input_rol)){
         $rol_err = "Introduce un rol.";     
     } elseif($input_rol !== "administrador" && $input_rol !== "superadministrador") {
-        $rol_err = "Valor inválido. Solo puede ser 'Administrador' o 'Superadministrador'.";
+        $rol_err = "Valor inválido. Solo puede ser 'administrador' o 'superadministrador'.";
     } else{
         $rol = $input_rol;
     }
