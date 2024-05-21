@@ -1,9 +1,15 @@
 <?php
+// Database credentials
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'id22057369_vicente');
+define('DB_PASSWORD', '#Calvar69');
+define('DB_NAME', 'id22057369_vicente');
+ 
+// Attempt to connect to MySQL database
+$con = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-$con = mysqli_connect('localhost', 'id22057369_vicente', '#Calvar69', 'id22057369_vicente');
-
-if($con == false) {
-    die('Error: No se puede conectar a la base de datos');
+// Check connection
+if($con === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-
 ?>
