@@ -87,7 +87,7 @@
                     </div>
                     <?php
                     // Include config file
-                    require_once "config.php";
+                    require_once "check.php";
                     
                     // Attempt select query execution
                     $sql = "SELECT * FROM administradores";

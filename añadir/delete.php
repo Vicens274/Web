@@ -68,7 +68,7 @@
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     // Include config file
-    require_once "config.php";
+    require_once "check.php";
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST["confirm"] == "Yes") {

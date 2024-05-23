@@ -67,7 +67,7 @@
 
   <?php
 // Include config file
-require_once "config.php";
+require_once "check.php";
  
 // Define variables and initialize with empty values
 $username = $password = $telefono = $email = $entidad = $estado = $rol = "";
