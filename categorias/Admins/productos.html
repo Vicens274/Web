@@ -308,6 +308,34 @@
   </div>
 </div>
 
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold;">Editar pregunta</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="editFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                  <input type="text" class="form-control" id="editFormControlInput1" placeholder="">
+              </div>
+              <div class="mb-3">
+                  <label for="editFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                  <textarea class="form-control" id="editFormControlTextarea1" name="description" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                  <label for="editVideoUpload" class="form-label">Subir video</label>
+                  <input type="file" class="form-control" id="editVideoUpload" accept="video/mp4, video/webm, video/ogg">
+              </div>
+              <div class="text-center">
+                  <button id="guardarCambios" type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Guardar Cambios</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
         <style>
           .smaller-image {
             max-width: 12em; /* Ancho máximo de la imagen */
