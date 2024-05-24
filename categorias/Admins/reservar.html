@@ -11,106 +11,155 @@
     <link rel="icon" href="../../Imagenes/favicon.png" type="image/png" sizes="16x16">
     <script src="https://cdn.tiny.cloud/1/ss8n4v14605wifuydbdfxrnz03f8s6y1gscbtelvjnyrejd6/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-   
+
     <script>
-      tinymce.init({
-        selector: '#exampleFormControlTextarea1',
-        plugins: 'link',
-        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | link',
-        menubar: false
-      });
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var accordion = document.getElementById('accordionExample');
-        Sortable.create(accordion, {
-          handle: '.accordion-header', // Selecciona los elementos que serán usados para arrastrar
-          animation: 150 // Duración de la animación en milisegundos
+        tinymce.init({
+            selector: '#exampleFormControlTextarea1, #editFormControlTextarea1',
+            plugins: 'link',
+            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | link',
+            menubar: false
         });
 
-        // Función para agregar eventos a botones de eliminación
-        function addDeleteEvent(button) {
-          button.addEventListener('click', function() {
-            var item = button.closest('.accordion-item');
-            item.parentNode.removeChild(item);
-          });
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var accordion = document.getElementById('accordionExample');
+            Sortable.create(accordion, {
+                handle: '.accordion-header',
+                animation: 150
+            });
 
-        // Agregar evento para botones de eliminación existentes
-        document.querySelectorAll('.btn-delete').forEach(addDeleteEvent);
+            function addDeleteEvent(button) {
+                button.addEventListener('click', function () {
+                    var item = button.closest('.accordion-item');
+                    item.parentNode.removeChild(item);
+                });
+            }
 
-        // Función para agregar un nuevo tab con botón de eliminación
-        document.getElementById('crearPregunta').addEventListener('click', function() {
-          var newIndex = document.querySelectorAll('.accordion-item').length + 1;
-          var newItem = document.createElement('div');
-          newItem.className = 'accordion-item';
-          newItem.innerHTML = `
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${newIndex}" aria-expanded="false" aria-controls="collapse${newIndex}">
-                Accordion Item #${newIndex}
-              </button>
-              <button class="btn-delete">Eliminar</button>
-            </h2>
-            <div id="collapse${newIndex}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <strong>Este es el contenido del nuevo tab ${newIndex}.</strong> Puedes modificarlo según sea necesario.
-              </div>
-            </div>
-          `;
-          accordion.appendChild(newItem);
+            function addEditEvent(button) {
+                button.addEventListener('click', function () {
+                    var item = button.closest('.accordion-item');
+                    var nombrePregunta = item.querySelector('.accordion-button').innerText;
+                    var descripcionPregunta = item.querySelector('.accordion-body').innerHTML;
+                    var videoURL = item.querySelector('video source').src;
 
-          // Agregar evento al nuevo botón de eliminación
-          addDeleteEvent(newItem.querySelector('.btn-delete'));
+                    // Prellenar el modal de edición
+                    document.getElementById('editFormControlInput1').value = nombrePregunta;
+                    tinymce.get('editFormControlTextarea1').setContent(descripcionPregunta);
+                    document.getElementById('editVideoUpload').src = videoURL;
 
-          // Cerrar el modal
-          var modal = document.getElementById('exampleCrear');
-          var modalInstance = bootstrap.Modal.getInstance(modal);
-          modalInstance.hide();
+                    // Mostrar el modal de edición
+                    var editModal = new bootstrap.Modal(document.getElementById('editModal'), {});
+                    editModal.show();
+
+                    // Guardar cambios
+                    document.getElementById('guardarCambios').onclick = function () {
+                        var nuevoNombre = document.getElementById('editFormControlInput1').value;
+                        var nuevaDescripcion = tinymce.get('editFormControlTextarea1').getContent();
+                        var nuevoVideoFile = document.getElementById('editVideoUpload').files[0];
+                        var nuevoVideoURL = nuevoVideoFile ? URL.createObjectURL(nuevoVideoFile) : videoURL;
+
+                        item.querySelector('.accordion-button').innerText = nuevoNombre;
+                        item.querySelector('.accordion-body').innerHTML = `${nuevaDescripcion}<video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;"><source src="${nuevoVideoURL}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                    };
+                });
+            }
+
+            document.querySelectorAll('.btn-delete').forEach(addDeleteEvent);
+            document.querySelectorAll('.btn-edit').forEach(addEditEvent);
+
+            document.getElementById('crearPregunta').addEventListener('click', function () {
+                var nombrePregunta = document.getElementById('exampleFormControlInput1').value;
+                var descripcionPregunta = tinymce.get('exampleFormControlTextarea1').getContent();
+                var videoFile = document.getElementById('videoUpload').files[0];
+
+                var newItem = document.createElement('div');
+                newItem.classList.add('accordion-item');
+
+                var newCollapseId = 'collapse' + (document.querySelectorAll('.accordion-item').length + 1);
+
+                var videoURL = '';
+                if (videoFile) {
+                    videoURL = URL.createObjectURL(videoFile);
+                }
+
+                newItem.innerHTML = `
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${newCollapseId}" aria-expanded="false">
+                            ${nombrePregunta}
+                        </button>
+                        <button class="btn-edit btn btn-primary ms-2">Editar</button>
+                        <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+                    </h2>
+                    <div id="${newCollapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            ${descripcionPregunta}
+                            <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                                <source src="${videoURL}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                `;
+
+                accordion.appendChild(newItem);
+
+                addDeleteEvent(newItem.querySelector('.btn-delete'));
+                addEditEvent(newItem.querySelector('.btn-edit'));
+
+                document.getElementById('exampleFormControlInput1').value = '';
+                tinymce.get('exampleFormControlTextarea1').setContent('');
+                document.getElementById('videoUpload').value = '';
+
+                var modal = document.getElementById('exampleCrear');
+                var modalInstance = bootstrap.Modal.getInstance(modal);
+                modalInstance.hide();
+            });
         });
-      });
     </script>
     <style>
-      .ocultar-menu {
-        display: none;
-      }
-      .accordion-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .btn-delete {
-        background-color: red;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 4px 8px;
-        cursor: pointer;
-      }
+        .ocultar-menu {
+            display: none;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-delete, .btn-edit {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .btn-edit {
+            background-color: blue;
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
-          <a href="../../index.html">
-            <img class="logo navbar-brand" src="../../Imagenes/logoGalileo.png"></img>
-          </a>
-          <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
-          </button>
-          <div class="menu-posicion collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="menu nav-link" href="./index.html">Inicio</a>
-                </li>
-                <li class="nav-item ocultar-menu">
-                  <a class="menu nav-link"  aria-current="page" href="./categorias.html">Categorías</a>
-                </li>   
-                <li class="nav-item">
-                  <a class="menu nav-link" href="../../contactanos.html">Contáctanos</a>
-              </li>
-          </ul>
-           
-          </div>
+            <a href="../../index.html">
+                <img class="logo navbar-brand" src="../../Imagenes/logoGalileo.png"></img>
+            </a>
+            <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
+            </button>
+            <div class="menu-posicion collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="menu nav-link" href="./index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item ocultar-menu">
+                        <a class="menu nav-link"  aria-current="page" href="./categorias.html">Categorías</a>
+                    </li>   
+                    <li class="nav-item">
+                        <a class="menu nav-link" href="../../contactanos.html">Contáctanos</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -130,80 +179,149 @@
     </div>
 
     <div class="margenpri accordion container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important;">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            <button class="btn-delete">Eliminar</button>
+          <div class="accordion-item">
+              <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                      Pregunta 1
+                  </button>
+                  <button class="btn-edit btn btn-primary ms-2" data-bs-toggle="collapse" data-bs-target="#collapse1">Editar</button>
+                  <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+              </h2>
+              <div id="collapse1" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                      Contenido de la pregunta 1.
+                      <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                          <source src="" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+              </div>
           </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                    Pregunta 1
+                </button>
+                <button class="btn-edit btn btn-primary ms-2" data-bs-toggle="collapse" data-bs-target="#collapse2">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Contenido de la pregunta 1.
+                    <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                  Pregunta 1
+              </button>
+              <button class="btn-edit btn btn-primary ms-2" data-bs-toggle="collapse" data-bs-target="#collapse3">Editar</button>
+              <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+          </h2>
+          <div id="collapse3" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                  Contenido de la pregunta 1.
+                  <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                      <source src="" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+          </div>
       </div>
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Accordion Item #2
-          </button>
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                Pregunta 1
+            </button>
+            <div class="ms-auto">
+                <button class="btn-edit btn btn-primary ms-2">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+            </div>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            <button class="btn-delete">Eliminar</button>
-          </div>
+        <div id="collapse4" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <div class="question-content">
+                    Contenido de la pregunta 1.
+                    <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Accordion Item #3
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            <button class="btn-delete">Eliminar</button>
-          </div>
-        </div>
-      </div>
     </div>
-
+</div>
     
-<div class="text-center">
-  <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
-</div>
 
-<div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="videoUpload" class="form-label">Subir video</label>
-            <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
-          </div>
-          <div class="text-center">
-              <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
-          </div>
-      </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
     </div>
-  </div>
-</div>
 
+    <div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                  </div>
+                  <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label for="videoUpload" class="form-label">Subir video (opcional)</label>
+                      <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
+                  </div>
+                  <div class="text-center">
+                      <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+
+    <!-- Modal para editar pregunta -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold;">Editar pregunta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                        <input type="text" class="form-control" id="editFormControlInput1" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                        <textarea class="form-control" id="editFormControlTextarea1" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editVideoUpload" class="form-label">Subir video</label>
+                        <input type="file" class="form-control" id="editVideoUpload" accept="video/mp4, video/webm, video/ogg">
+                    </div>
+                    <div class="text-center">
+                        <button id="guardarCambios" type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 
         <style>
           .smaller-image {

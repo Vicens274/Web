@@ -11,9 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var newCollapseId = 'collapse' + (document.querySelectorAll('.accordion-item').length + 1);
 
+        var hasVideo = false; // Variable que indica si se ha seleccionado un archivo de video
         var videoURL = ''; // Variable para guardar la URL del video
+
         if (videoFile) {
             // Si se ha seleccionado un archivo de video, crear una URL de objeto para el video
+            hasVideo = true;
             videoURL = URL.createObjectURL(videoFile);
         }
 
@@ -26,10 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <div id="${newCollapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     ${descripcionPregunta}
-                    <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
-                        <source src="${videoURL}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    ${hasVideo ? `
+                        <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                            <source src="${videoURL}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>` : ''}
                 </div>
             </div>
         `;
@@ -42,4 +46,3 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('videoUpload').value = ''; // Limpia el input de archivo de video después de agregar la pregunta
     });
 });
-

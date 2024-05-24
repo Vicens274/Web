@@ -14,20 +14,107 @@
 
     <script>
       tinymce.init({
-        selector: '#exampleFormControlTextarea1',
-        plugins: 'link',
-        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | link',
-        menubar: false
+          selector: '#exampleFormControlTextarea1, #editFormControlTextarea1',
+          plugins: 'link',
+          toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | link',
+          menubar: false
       });
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var accordion = document.getElementById('accordionExample');
-        Sortable.create(accordion, {
-          handle: '.accordion-header', // Selecciona los elementos que serán usados para arrastrar
-          animation: 150 // Duración de la animación en milisegundos
-        });
+      document.addEventListener('DOMContentLoaded', function () {
+          var accordion = document.getElementById('accordionExample');
+          Sortable.create(accordion, {
+              handle: '.accordion-header',
+              animation: 150
+          });
+
+          function addDeleteEvent(button) {
+              button.addEventListener('click', function () {
+                  var item = button.closest('.accordion-item');
+                  item.parentNode.removeChild(item);
+              });
+          }
+
+          function addEditEvent(button) {
+              button.addEventListener('click', function () {
+                  var item = button.closest('.accordion-item');
+                  var nombrePregunta = item.querySelector('.accordion-button').innerText;
+                  var descripcionPregunta = item.querySelector('.accordion-body').innerHTML;
+                  var videoURL = item.querySelector('video source').src;
+
+                  // Prellenar el modal de edición
+                  document.getElementById('editFormControlInput1').value = nombrePregunta;
+                  tinymce.get('editFormControlTextarea1').setContent(descripcionPregunta);
+                  document.getElementById('editVideoUpload').src = videoURL;
+
+                  // Mostrar el modal de edición
+                  var editModal = new bootstrap.Modal(document.getElementById('editModal'), {});
+                  editModal.show();
+
+                  // Guardar cambios
+                  document.getElementById('guardarCambios').onclick = function () {
+                      var nuevoNombre = document.getElementById('editFormControlInput1').value;
+                      var nuevaDescripcion = tinymce.get('editFormControlTextarea1').getContent();
+                      var nuevoVideoFile = document.getElementById('editVideoUpload').files[0];
+                      var nuevoVideoURL = nuevoVideoFile ? URL.createObjectURL(nuevoVideoFile) : videoURL;
+
+                      item.querySelector('.accordion-button').innerText = nuevoNombre;
+                      item.querySelector('.accordion-body').innerHTML = `${nuevaDescripcion}<video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;"><source src="${nuevoVideoURL}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                  };
+              });
+          }
+
+          document.querySelectorAll('.btn-delete').forEach(addDeleteEvent);
+          document.querySelectorAll('.btn-edit').forEach(addEditEvent);
+
+          document.getElementById('crearPregunta').addEventListener('click', function () {
+              var nombrePregunta = document.getElementById('exampleFormControlInput1').value;
+              var descripcionPregunta = tinymce.get('exampleFormControlTextarea1').getContent();
+              var videoFile = document.getElementById('videoUpload').files[0];
+
+              var newItem = document.createElement('div');
+              newItem.classList.add('accordion-item');
+
+              var newCollapseId = 'collapse' + (document.querySelectorAll('.accordion-item').length + 1);
+
+              var videoURL = '';
+              if (videoFile) {
+                  videoURL = URL.createObjectURL(videoFile);
+              }
+
+              newItem.innerHTML = `
+                  <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${newCollapseId}" aria-expanded="false">
+                          ${nombrePregunta}
+                      </button>
+                      <button class="btn-edit btn btn-primary ms-2">Editar</button>
+                      <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+                  </h2>
+                  <div id="${newCollapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                          ${descripcionPregunta}
+                          <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
+                              <source src="${videoURL}" type="video/mp4">
+                              Your browser does not support the video tag.
+                          </video>
+                      </div>
+                  </div>
+              `;
+
+              accordion.appendChild(newItem);
+
+              addDeleteEvent(newItem.querySelector('.btn-delete'));
+              addEditEvent(newItem.querySelector('.btn-edit'));
+
+              document.getElementById('exampleFormControlInput1').value = '';
+              tinymce.get('exampleFormControlTextarea1').setContent('');
+              document.getElementById('videoUpload').value = '';
+
+              var modal = document.getElementById('exampleCrear');
+              var modalInstance = bootstrap.Modal.getInstance(modal);
+              modalInstance.hide();
+          });
       });
-    </script>
+  </script>
     <style>
       .ocultar-menu {
         display: none;
@@ -67,7 +154,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="../../dashboard.html" style="text-decoration: none !important; color: #3552A6 !important;">Categorias</a></li>
-                        <li class="breadcrumb-item"><a href="../../taquilleros.html" style="text-decoration: none !important; color: #3552A6 !important;">Administradores</a></li>
+                        <li class="breadcrumb-item"><a href="../../administradores.html" style="text-decoration: none !important; color: #3552A6 !important;">Administradores</a></li>
                         <li class="breadcrumb-item"><a href="entidades.html" style="text-decoration: none !important; color: #212529BF !important;">Entidades</a></li>
                     </ol>
                 </nav>
