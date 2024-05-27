@@ -172,7 +172,7 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            <strong>This is the first item's accordion body. Vicentin</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
           </div>
         </div>
       </div>
@@ -274,21 +274,23 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form action="upload.php" method="post" enctype="multipart/form-data">
               <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
-                  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                <label for="titulo" class="form-label">Nombre de la pregunta</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" required>
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+                <label for="descripcion" class="form-label">Descripción de la pregunta</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
               </div>
               <div class="mb-3">
-                <label for="videoUpload" class="form-label">Subir video</label>
-                <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
+                <label for="video" class="form-label">Subir video</label>
+                <input type="file" class="form-control" id="video" name="video" accept="video/*" required>
               </div>
               <div class="text-center">
-                  <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+                <button id="crearPregunta" type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
               </div>
+            </form>
           </div>
         </div>
       </div>
