@@ -274,27 +274,28 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="upload.php" method="post" enctype="multipart/form-data">
+            <form id="crearPreguntaForm" action="upload.php" method="POST" enctype="multipart/form-data">
               <div class="mb-3">
-                <label for="titulo" class="form-label">Nombre de la pregunta</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="titulo" required>
               </div>
               <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción de la pregunta</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="descripcion" rows="3" required></textarea>
               </div>
               <div class="mb-3">
-                <label for="video" class="form-label">Subir video</label>
-                <input type="file" class="form-control" id="video" name="video" accept="video/*" required>
+                <label for="videoUpload" class="form-label">Subir video</label>
+                <input type="file" class="form-control" id="videoUpload" name="video" accept="video/mp4, video/webm, video/ogg" required>
               </div>
               <div class="text-center">
-                <button id="crearPregunta" type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+                <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+    
 
         <style>
           video {

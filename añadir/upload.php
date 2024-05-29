@@ -1,13 +1,10 @@
 <?php
+include('check.php');
 require './vendor/autoload.php'; // Asegúrate de tener el SDK de Dropbox instalado vía Composer
 
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxApp;
-
-$servername = "localhost";
-$username = "id22057369_vicente";
-$password = "#Calvar69";
-$dbname = "id22057369_vicente";
+use Kunnu\Dropbox\DropboxFile;
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -18,19 +15,18 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $_POST['titulo'];
-    $descripcion = $_POST['descripcion'];
     $video = $_FILES['video'];
 
     if ($video['error'] == UPLOAD_ERR_OK) {
         $tmp_name = $video['tmp_name'];
         $name = basename($video['name']);
 
-        // Subir a Dropbox
-        $app = new DropboxApp("APP_KEY", "APP_SECRET", "ACCESS_TOKEN");
+        // Configurar Dropbox
+        $app = new DropboxApp("5mrrh69i5pa6ycl", "puf20mjdllm99m6", "sl.B2InqJ_utlaAfKB7sdewaCsu80R_e2LGQMSX4LtHPWaCkezwlsfHDYBLtbUABIjWvxN5wFa-xQFx15Wst0UavWW31RR3H6MCgjTy1opSJWxDzTv2x17JM-W34SboqJVZjQcS7RZEVx5Y");
         $dropbox = new Dropbox($app);
 
-        $dropboxFile = new \Kunnu\Dropbox\DropboxFile($tmp_name);
+        // Subir archivo a Dropbox
+        $dropboxFile = new DropboxFile($tmp_name);
         $uploadedFile = $dropbox->upload($dropboxFile, "/videos/$name", ['autorename' => true]);
 
         // Obtener la URL compartida
@@ -38,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $url = str_replace("?dl=0", "?dl=1", $sharedLink['url']);
 
         // Insertar en la base de datos
-        $sql = "INSERT INTO videos (titulo, descripcion, url) VALUES ('$titulo', '$descripcion', '$url')";
+        $sql = "INSERT INTO videos (url) VALUES ('$url')";
         if ($conn->query($sql) === TRUE) {
             echo "Nuevo video subido exitosamente";
         } else {
