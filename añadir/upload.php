@@ -1,49 +1,39 @@
 <?php
-include('check.php');
-require './vendor/autoload.php'; // Asegúrate de tener el SDK de Dropbox instalado vía Composer
+$servername = "localhost";
+$username = "id22057369_vicente";
+$password = "#Calvar69";
+$dbname = "id22057369_vicente";
 
-use Kunnu\Dropbox\Dropbox;
-use Kunnu\Dropbox\DropboxApp;
-use Kunnu\Dropbox\DropboxFile;
-
-// Crear conexión
+// Crea conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexión
+// Verifica conexión
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $video = $_FILES['video'];
+// Lee los datos del cuerpo de la solicitud
+$data = json_decode(file_get_contents('php://input'), true);
+$titulo = $data['titulo'];
+$descripcion = $data['descripcion'];
+$videoUrl = $data['videoUrl'];
 
-    if ($video['error'] == UPLOAD_ERR_OK) {
-        $tmp_name = $video['tmp_name'];
-        $name = basename($video['name']);
+// Inserta el artículo
+$sql = "INSERT INTO articles (name, description) VALUES ('$titulo', '$descripcion')";
 
-        // Configurar Dropbox
-        $app = new DropboxApp("5mrrh69i5pa6ycl", "puf20mjdllm99m6", "sl.B2InqJ_utlaAfKB7sdewaCsu80R_e2LGQMSX4LtHPWaCkezwlsfHDYBLtbUABIjWvxN5wFa-xQFx15Wst0UavWW31RR3H6MCgjTy1opSJWxDzTv2x17JM-W34SboqJVZjQcS7RZEVx5Y");
-        $dropbox = new Dropbox($app);
-
-        // Subir archivo a Dropbox
-        $dropboxFile = new DropboxFile($tmp_name);
-        $uploadedFile = $dropbox->upload($dropboxFile, "/videos/$name", ['autorename' => true]);
-
-        // Obtener la URL compartida
-        $sharedLink = $dropbox->createSharedLinkWithSettings($uploadedFile->getPathDisplay());
-        $url = str_replace("?dl=0", "?dl=1", $sharedLink['url']);
-
-        // Insertar en la base de datos
-        $sql = "INSERT INTO videos (url) VALUES ('$url')";
-        if ($conn->query($sql) === TRUE) {
-            echo "Nuevo video subido exitosamente";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    } else {
-        echo "Error al subir el video.";
-    }
-
-    $conn->close();
+if ($conn->query($sql) === TRUE) {
+  $articleId = $conn->insert_id;
+  
+  // Inserta el video
+  $sql = "INSERT INTO videos (article_id, url) VALUES ('$articleId', '$videoUrl')";
+  if ($conn->query($sql) === TRUE) {
+    echo json_encode(['success' => true]);
+  } else {
+    echo json_encode(['success' => false, 'message' => 'Error al guardar el video: ' . $conn->error]);
+  }
+} else {
+  echo json_encode(['success' => false, 'message' => 'Error al guardar el artículo: ' . $conn->error]);
 }
+
+$conn->close();
 ?>

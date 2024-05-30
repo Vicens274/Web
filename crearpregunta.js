@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="accordion-body">
                     ${descripcionPregunta}
                     ${hasVideo ? `
-                        <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important;">
-                            <source src="${videoURL}" type="video/mp4">
+                    <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                    <source src="${videoURL}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>` : ''}
                 </div>
