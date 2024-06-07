@@ -119,6 +119,22 @@
       .ocultar-menu {
         display: none;
       }
+      .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-delete, .btn-edit {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .btn-edit {
+            background-color: blue;
+        }
     </style>
 </head>
 <body>
@@ -126,7 +142,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
         <a href="../../index.html">
-          <img class="logo navbar-brand" src="../../Imagenes/logoGalileo.png"></img>
+          <img class="logo navbar-brand" style="margin-right: -8em !important;" src="../../Imagenes/logoGalileo.png"></img>
         </a>
           <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
@@ -163,148 +179,148 @@
         </div>
     </div>
 
-    <div class="margenpri accordion container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important; ">
+    <div class="margenpri accordion container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important;">
       <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                  Pregunta 1
+              </button>
+              <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+              <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+          </h2>
+          <div id="collapse1" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                  Contenido de la pregunta 1.
+                  <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                    <source src="" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
           </div>
-        </div>
       </div>
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Accordion Item #2
-          </button>
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                Pregunta 1
+            </button>
+            <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+            <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
+        <div id="collapse2" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                Contenido de la pregunta 1.
+                <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Accordion Item #3
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+              Pregunta 1
+          </button>
+          <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+          <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse">
+          <div class="accordion-body">
+              Contenido de la pregunta 1.
+              <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                  <source src="" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          </div>
+      </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+            Pregunta 1
+        </button>
+            <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+            <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+        
+    </h2>
+    <div id="collapse4" class="accordion-collapse collapse">
+        <div class="accordion-body">
+            <div class="question-content">
+                Contenido de la pregunta 1.
+                <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
-    <style>
-      video {
-        align-items: center;
-        justify-content: center;
-        width: 100vh; /* Ajusta el ancho del video al 100% del contenedor */
-        height: 100vh; /* La altura se ajustará automáticamente para mantener la relación de aspecto */
-        max-width: 100%; /* El video no superará el ancho del contenedor */
-        max-height: 400px; /* Altura máxima del video */
-        border-radius: 10px;
-      }
-    </style>
+
 
 <div class="text-center">
-  <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
+    <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
 </div>
 
 <div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+              </div>
+              <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                  <label for="videoUpload" class="form-label">Subir video (opcional)</label>
+                  <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
+              </div>
+              <div class="text-center">
+                  <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+              </div>
+          </div>
       </div>
-      <div class="modal-body">
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="videoUpload" class="form-label">Subir video</label>
-            <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
-          </div>
-          <div class="text-center">
-              <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
-          </div>
-      </div>
-    </div>
   </div>
 </div>
+
+
+<!-- Modal para editar pregunta -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold;">Editar pregunta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="editFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                    <input type="text" class="form-control" id="editFormControlInput1" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="editFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                    <textarea class="form-control" id="editFormControlTextarea1" name="description" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="editVideoUpload" class="form-label">Subir video</label>
+                    <input type="file" class="form-control" id="editVideoUpload" accept="video/mp4, video/webm, video/ogg">
+                </div>
+                <div class="text-center">
+                    <button id="guardarCambios" type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <style>
           .smaller-image {
@@ -329,7 +345,7 @@
                     <ul>
                         <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                         <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Eventos</a></li>
-                        <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Contacto</a></li>
+                        <li><a href="../../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Contacto</a></li>
                     </ul>
                 </div>
             </div>
@@ -346,6 +362,5 @@
         </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../../crearpregunta.js"></script>
 </body>
 </html>

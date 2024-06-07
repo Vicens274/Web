@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
             <a href="./index.html">
-                <img class="logo navbar-brand" src="./Imagenes/logoGalileo.png"></img>
+                <img class="logo navbar-brand" style="margin-right: -8em !important;" src="./Imagenes/logoGalileo.png"></img>
             </a>
           <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
@@ -66,7 +66,7 @@
         </div>
     </div>           
 
-    <div class="padding-abajo" style="margin-top: 2em !important;">
+    <div style="margin-top: 1em !important;">
         <div class="row justify-content-center" style="--bs-gutter-x: 0 !important;">
             <div class="col-12 col-md-9">
                 <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" id="sortable">
@@ -128,7 +128,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold;">Editar sección</h1>
+                    <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold;">Editar   sección</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -165,7 +165,7 @@
                         <ul>
                             <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                             <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
-                            <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
+                            <li><a href="./contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                         </ul>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
             function crearTarjeta(categoria, index) {
                 var col = document.createElement('div');
                 col.classList.add('col');
-
+                
                 var card = document.createElement('div');
                 card.classList.add('card', 'h-100');
 

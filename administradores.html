@@ -29,7 +29,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
         <a href="./index.html">
-        <img class="logo navbar-brand" src="./Imagenes/logoGalileo.png"></img>
+        <img class="logo navbar-brand" style="margin-right: -8em !important;" src="./Imagenes/logoGalileo.png"></img>
         </a>
           <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
@@ -98,7 +98,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title">Estadísticas</h5>
-                                <p class="card-text"> Accede a datos detallados y análisis para tomar decisiones informadas.</p>
+                                <p class="card-text">Accede a datos detallados y análisis para tomar decisiones informadas.</p>
                             </div>
                         </div>
                         </a>
@@ -158,7 +158,30 @@
         </div>
     </div>
     
-    
+         <!-- Modal para editar seccion -->
+         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold;">Editar sección</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="editFormControlInput1" class="form-label">Nombre de la sección</label>
+                            <input type="text" class="form-control" id="editFormControlInput1" placeholder="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editFormControlTextarea1" class="form-label">Descripción de la sección</label>
+                            <textarea class="form-control" id="editFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button id="guardarCambios" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 
     <footer class="footer w-100">
         <div class="row px-5 py-5" style="--bs-gutter-x: 0 !important;">
@@ -176,7 +199,7 @@
                         <ul>
                             <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                             <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
-                            <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
+                            <li><a href="./contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                         </ul>
                     </div>
                 </div>
@@ -190,7 +213,7 @@
             }
         </style>
 
-        <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
+        <div class="container text-center " style="padding-top: 15px !important; border-top: 2px solid white !important;">
             <div class="row-cols-sm-2">
              <span class="">© 2024 Powered by Saudeter</span>
             </div>
@@ -203,84 +226,109 @@
 
     <script src="./ocultarbtn.js"></script>
     <script>
-        $(document).ready(function() {
-            localStorage.removeItem('secciones');
+        document.addEventListener('DOMContentLoaded', function () {
+            var sortable = document.getElementById('sortable');
+            var categorias = [
+                { nombre: 'Primeros Pasos - Galileo', descripcion: 'Un recorrido especializado para comenzar tu experiencia con Galileo, nuestra plataforma emblemática.', link: './categorias/Admins/primerospasos.html' },
+                { nombre: 'Productos', descripcion: 'Crea, activa y vende tus servicios o productos a los usuarios.', link: './categorias/Admins/productos.html' },
+                { nombre: 'Estadísticas', descripcion: 'Accede a datos detallados y análisis para tomar decisiones informadas.', link: './categorias/Admins/estadisticas.html' },
+                { nombre: 'Entidades', descripcion: 'Controla y modifica tu propia entidad.', link: './categorias/Admins/entidades.html' },
+                { nombre: 'Reservar', descripcion: 'Asegura tu lugar para eventos, citas o servicios reservables con nuestra función de reserva integrada.', link: './categorias/Admins/reservar.html' }
+            ];
 
-            // Función para cargar las secciones desde Local Storage
-            function cargarSeccionesDesdeLocalStorage() {
-                var secciones = JSON.parse(localStorage.getItem('secciones')) || [];
+            function crearTarjeta(categoria, index) {
+                var col = document.createElement('div');
+                col.classList.add('col');
                 
-                // Recorre todas las secciones almacenadas y crea las cajas correspondientes
-                secciones.forEach(function(seccion) {
-                    var newCard = `
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">${seccion.nombre}</h5>
-                                    <p class="card-text">${seccion.descripcion}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    $('#sortable').append(newCard);
+                var card = document.createElement('div');
+                card.classList.add('card', 'h-100');
+
+                var cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
+
+                var titulo = document.createElement('h3');
+                titulo.classList.add('card-title');
+                titulo.textContent = categoria.nombre;
+
+                var descripcion = document.createElement('p');
+                descripcion.classList.add('card-text');
+                descripcion.textContent = categoria.descripcion;
+
+                var link = document.createElement('a');
+                link.href = categoria.link;
+                link.style.textDecoration = 'none';
+
+                var editButton = document.createElement('button');
+                editButton.classList.add('btn', 'btn-secondary', 'mt-2');
+                editButton.textContent = 'Editar';
+                editButton.dataset.index = index;
+                editButton.setAttribute('data-bs-toggle', 'modal');
+                editButton.setAttribute('data-bs-target', '#editModal');
+
+                editButton.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevenir la redirección predeterminada al hacer clic en el botón
+                    document.getElementById('editFormControlInput1').value = categoria.nombre;
+                    document.getElementById('editFormControlTextarea1').value = categoria.descripcion;
+                    document.getElementById('guardarCambios').dataset.index = this.dataset.index;
+                });
+
+
+                cardBody.appendChild(titulo);
+                cardBody.appendChild(descripcion);
+                cardBody.appendChild(editButton);
+                card.appendChild(cardBody);
+                link.appendChild(card);
+                col.appendChild(link);
+
+                return col;
+            }
+
+            function actualizarLista() {
+                sortable.innerHTML = '';
+                categorias.forEach(function (categoria, index) {
+                    var tarjeta = crearTarjeta(categoria, index);
+                    sortable.appendChild(tarjeta);
+                });
+                Sortable.create(sortable, {
+                    animation: 150,
+                    ghostClass: 'sortable-ghost',
+                    onEnd: function (evt) {
+                        var item = categorias.splice(evt.oldIndex, 1)[0];
+                        categorias.splice(evt.newIndex, 0, item);
+                        actualizarLista();
+                    }
                 });
             }
 
-            // Cargar las secciones al cargar la página
-            cargarSeccionesDesdeLocalStorage();
-
-            $('#crearSeccion').click(function() {
-                var nombre = $('#exampleFormControlInput1').val();
-                var descripcion = $('#exampleFormControlTextarea1').val();
-
-                var seccion = {
-                    nombre: nombre,
-                    descripcion: descripcion
-                };
-
-                // Agregar la nueva sección al contenedor
-                var newCard = `
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">${nombre}</h5>
-                                <p class="card-text">${descripcion}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                $('#sortable').append(newCard);
-
-                // Guardar la nueva sección en Local Storage
-                var secciones = JSON.parse(localStorage.getItem('secciones')) || [];
-                secciones.push(seccion);
-                localStorage.setItem('secciones', JSON.stringify(secciones));
-
-                // Limpiar el formulario
-                $('#exampleFormControlInput1').val('');
-                $('#exampleFormControlTextarea1').val('');
-
-                // Volver a inicializar SortableJS para incluir la nueva tarjeta
-                Sortable.create(document.getElementById('sortable'), {
-                    animation: 150,
-                    ghostClass: 'sortable-ghost',
-                    onEnd: function(evt) {
-                        console.log('Element moved:', evt.item);
-                    }
-                });
-
-                // Cerrar el modal
-                $('#example').modal('hide');
-            });
-
-            // Inicializar SortableJS
-            Sortable.create(document.getElementById('sortable'), {
-                animation: 150,
-                ghostClass: 'sortable-ghost',
-                onEnd: function(evt) {
-                    console.log('Element moved:', evt.item);
+            document.getElementById('crearSeccion').addEventListener('click', function () {
+                var nombre = document.getElementById('exampleFormControlInput1').value;
+                var descripcion = document.getElementById('exampleFormControlTextarea1').value;
+                if (nombre && descripcion) {
+                    categorias.push({ nombre: nombre, descripcion: descripcion, link: '#' });
+                    actualizarLista();
+                    document.getElementById('exampleFormControlInput1').value = '';
+                    document.getElementById('exampleFormControlTextarea1').value = '';
+                    var exampleModal = document.getElementById('example');
+                    var modal = bootstrap.Modal.getInstance(exampleModal);
+                    modal.hide();
                 }
             });
+
+            document.getElementById('guardarCambios').addEventListener('click', function () {
+                var index = this.dataset.index;
+                var nombre = document.getElementById('editFormControlInput1').value;
+                var descripcion = document.getElementById('editFormControlTextarea1').value;
+                if (nombre && descripcion) {
+                    categorias[index].nombre = nombre;
+                    categorias[index].descripcion = descripcion;
+                    actualizarLista();
+                    var editModal = document.getElementById('editModal');
+                    var modal = bootstrap.Modal.getInstance(editModal);
+                    modal.hide();
+                }
+            });
+
+            actualizarLista();
         });
     </script>
 </body>
