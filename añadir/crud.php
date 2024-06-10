@@ -62,9 +62,9 @@
           
         </ul>
         <div>
-          <a class="d-flex" style="text-decoration: none !important;" href="../categorias.html">
+          <a class="d-flex" style="text-decoration: none !important;" href="../dashboard.html">
             <button type="button" class="mayuscula btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important;">
-                Identifícate
+                Volver
             </button>
             </a>
         </div>
@@ -83,59 +83,60 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
-                        <a href="create.php" class="btn btn-success pull-right" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;"><i class="fa fa-plus"></i>Añadir nuevo Usuario</a>
+                        <a href="create.php" class="btn btn-success pull-right" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important; border-color: #3552A6 !important;"><i class="fa fa-plus"></i>Añadir nuevo Usuario</a>
                     </div>
                     <?php
-                    // Include config file
-                    require_once "check.php";
-                    
-                    // Attempt select query execution
-                    $sql = "SELECT * FROM administradores";
-                    if($result = $pdo->query($sql)){
-                        if($result->rowCount() > 0){
-                            echo '<table class="table table-bordered table-striped">';
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th>Usuario</th>";
-                                        echo "<th>Contraseña</th>";
-                                        echo "<th>Teléfono</th>";
-                                        echo "<th>Email</th>";
-                                        echo "<th>Entidad</th>";
-                                        echo "<th>Estado</th>";
-                                        echo "<th>Rol</th>";
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
-                                while($row = $result->fetch()){
-                                    echo "<tr>";
-                                        echo "<td>" . $row['Usuario'] . "</td>";
-                                        echo "<td>" . $row['Contraseña'] . "</td>";
-                                        echo "<td>" . $row['Telefono'] . "</td>";
-                                        echo "<td>" . $row['Email'] . "</td>";
-                                        echo "<td>" . $row['Entidad'] . "</td>";
-                                        echo "<td>" . $row['Estado'] . "</td>";
-                                        echo "<td>" . $row['Rol'] . "</td>";
+                        // Incluir el archivo de configuración de la base de datos
+                        require_once "check.php";
 
-                                        echo "<td>";
-                                            echo '<a href="update.php?id='. $row['Usuario'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['Usuario'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                        echo "</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</tbody>";                            
-                            echo "</table>";
-                            // Free result set
-                            unset($result);
-                        } else{
-                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        // Intentar ejecutar la consulta
+                        $sql = "SELECT * FROM administradores";
+                        if($result = $pdo->query($sql)){
+                            if($result->rowCount() > 0){
+                                echo '<table class="table table-bordered table-striped">';
+                                    echo "<thead>";
+                                        echo "<tr>";
+                                            echo "<th>Usuario</th>";
+                                            echo "<th>Contraseña</th>";
+                                            echo "<th>Teléfono</th>";
+                                            echo "<th>Email</th>";
+                                            echo "<th>Entidad</th>";
+                                            echo "<th>Estado</th>";
+                                            echo "<th>Rol</th>";
+                                        echo "</tr>";
+                                    echo "</thead>";
+                                    echo "<tbody>";
+                                    while($row = $result->fetch()){
+                                        echo "<tr>";
+                                            echo "<td>" . $row['Usuario'] . "</td>";
+                                            echo "<td>" . $row['Contraseña'] . "</td>";
+                                            echo "<td>" . $row['Telefono'] . "</td>";
+                                            echo "<td>" . $row['Email'] . "</td>";
+                                            echo "<td>" . $row['Entidad'] . "</td>";
+                                            echo "<td>" . $row['Estado'] . "</td>";
+                                            echo "<td>" . $row['Rol'] . "</td>";
+
+                                            echo "<td>";
+                                                echo '<a href="update.php?id='. $row['Usuario'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                                echo '<a href="delete.php?id='. $row['Usuario'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                            echo "</td>";
+                                        echo "</tr>";
+                                    }
+                                    echo "</tbody>";                            
+                                echo "</table>";
+                                // Liberar el conjunto de resultados
+                                unset($result);
+                            } else {
+                                echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                            }
+                        } else {
+                            echo "Oops! Something went wrong. Please try again later.";
                         }
-                    } else{
-                        echo "Oops! Something went wrong. Please try again later.";
-                    }
-                    
-                    // Close connection
-                    unset($pdo);
-                    ?>
+
+                        // Cerrar la conexión
+                        unset($pdo);
+                        ?>
+
                 </div>
             </div>        
         </div>
@@ -157,7 +158,7 @@
                       <ul>
                           <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                           <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
-                          <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
+                          <li><a href="../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                       </ul>
                   </div>
               </div>
@@ -172,7 +173,7 @@
       </style>
 
 
-      <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
+      <div class="container text-center" style="padding-top: 15px !important; border-top: 2px solid white !important;">
           <div class="row-cols-sm-2">
            <span class="">© 2024 Powered by Saudeter</span>
           </div>
@@ -182,8 +183,5 @@
           </div>
       </div>
 </footer>
-
-<script src="../script.js"></script>
-
 </body>
 </html>

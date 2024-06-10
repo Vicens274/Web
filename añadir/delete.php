@@ -60,64 +60,62 @@
 
   <div class="row subir-banner" style="--bs-gutter-x: 0 !important; margin-top: 4em !important; margin-bottom: 1em !important;">
     <div class="col text-center">
-        <h1 class="pb-3" style="color: #3552A6 !important; font-size: 44px !important;">Contáctanos</h1>
+        <h1 class="pb-3" style="color: #3552A6 !important; font-size: 44px !important;">Eliminar Administrador</h1>
     </div>
   </div>   
 
   <?php
-// Check existence of id parameter before processing further
-if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    // Include config file
-    require_once "check.php";
-    
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if ($_POST["confirm"] == "Yes") {
-            // Prepare a delete statement
-            $sql = "DELETE FROM administradores WHERE Usuario = :Usuario";
-            
-            if($stmt = $pdo->prepare($sql)){
-                // Bind variables to the prepared statement as parameters
-                $stmt->bindParam(":Usuario", $param_Usuario);
+    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+        // Include config file
+        require_once "check.php";
+        
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST["confirm"]) && $_POST["confirm"] == "Si") {
+                // Prepare a delete statement
+                $sql = "DELETE FROM administradores WHERE Usuario = :Usuario";
                 
-                // Set parameters 
-                $param_Usuario = trim($_GET["id"]);
+                if($stmt = $pdo->prepare($sql)){
+                    // Bind variables to the prepared statement as parameters
+                    $stmt->bindParam(":Usuario", $param_Usuario);
+                    
+                    // Set parameters 
+                    $param_Usuario = trim($_GET["id"]);
 
-                // Attempt to execute the prepared statement
-                if($stmt->execute()){
-                    // Records deleted successfully. Redirect to landing page
-                    header("location: crud.php");
-                    exit();
-                } else{
-                    echo "Oops! Something went wrong. Please try again later.";
+                    // Attempt to execute the prepared statement
+                    if($stmt->execute()){
+                        // Records deleted successfully. Redirect to landing page
+                        header("location: crud.php");
+                        exit();
+                    } else{
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
                 }
+                
+                // Close statement
+                unset($stmt);
+            } else {
+                // Redirect to CRUD page if user cancels
+                header("location: crud.php");
+                exit();
             }
-             
-            // Close statement
-            unset($stmt);
-        } else {
-            // Redirect to CRUD page if user cancels
-            header("location: crud.php");
+        }
+        
+        // Close connection
+        unset($pdo);
+    } else{
+        // Check existence of id parameter
+        if(empty(trim($_GET["id"]))){
+            // URL doesn't contain id parameter. Redirect to error page
+            header("location: error.php");
             exit();
         }
     }
-    
-    // Close connection
-    unset($pdo);
-} else{
-    // Check existence of id parameter
-    if(empty(trim($_GET["id"]))){
-        // URL doesn't contain id parameter. Redirect to error page
-        header("location: error.php");
-        exit();
-    }
-}
 ?>
 
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5 mb-3">Eliminar Administrador</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . $_GET["id"]; ?>" method="post">
                         <div class="alert alert-danger">
                             <input type="hidden" name="Usuario" value="<?php echo isset($_POST["Usuario"]) ? htmlspecialchars($_POST["Usuario"]) : ''; ?>">
@@ -133,7 +131,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         </div>
     </div>
 
-    <footer class="footerabajo footer pb-4">
+    <footer class=" footer pb-4 fixed-bottom">
       <div class="row px-5 py-5" style="--bs-gutter-x: 0 !important;">
           <div class="container">
               <div class="row">
@@ -149,7 +147,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                       <ul>
                           <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                           <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
-                          <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
+                          <li><a href="../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                       </ul>
                   </div>
               </div>
@@ -164,7 +162,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
       </style>
 
 
-      <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
+      <div class="container text-center" style="padding-top: 15px !important; border-top: 2px solid white !important;">
           <div class="row-cols-sm-2">
            <span class="">© 2024 Powered by Saudeter</span>
           </div>
@@ -174,9 +172,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
           </div>
       </div>
   </footer>
-
-    <script src="../script.js"></script>
-
 </body>
 </html>
 

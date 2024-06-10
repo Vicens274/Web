@@ -1,39 +1,51 @@
 <?php
+require '../vendor/autoload.php';
+
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxApp;
+
 $servername = "localhost";
 $username = "id22057369_vicente";
-$password = "#Calvar69";
+$password = "#Calvar96";
 $dbname = "id22057369_vicente";
 
-// Crea conexión
+// Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica conexión
+// Verificar conexión
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Lee los datos del cuerpo de la solicitud
-$data = json_decode(file_get_contents('php://input'), true);
-$titulo = $data['titulo'];
-$descripcion = $data['descripcion'];
-$videoUrl = $data['videoUrl'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['video'])) {
+    $question_name = $_POST['question_name'];
+    $description = $_POST['description'];
+    $file = $_FILES['video'];
 
-// Inserta el artículo
-$sql = "INSERT INTO articles (name, description) VALUES ('$titulo', '$descripcion')";
+    $file_path = $file['tmp_name'];
+    $file_name = $file['name'];
 
-if ($conn->query($sql) === TRUE) {
-  $articleId = $conn->insert_id;
-  
-  // Inserta el video
-  $sql = "INSERT INTO videos (article_id, url) VALUES ('$articleId', '$videoUrl')";
-  if ($conn->query($sql) === TRUE) {
-    echo json_encode(['success' => true]);
-  } else {
-    echo json_encode(['success' => false, 'message' => 'Error al guardar el video: ' . $conn->error]);
-  }
-} else {
-  echo json_encode(['success' => false, 'message' => 'Error al guardar el artículo: ' . $conn->error]);
+    // Configuración de Dropbox
+    $app = new DropboxApp("5mrrh69i5pa6ycl", "puf20mjdllm99m6", "sl.B25nTIdbEarYuafCZPx8f95mdZPwocMu2EufNKD02TT_NLFQZYBceBk_r3NIU1GUfxGrHXp0g0VdAmxkxasx5IAa9Zgaq9IGAVLIQnFYONN8RDhbGoTHSLxhNw102DkaX2rw5PWoAB51");
+    $dropbox = new Dropbox($app);
+
+    // Subir el archivo a Dropbox
+    $dropboxFile = new \Kunnu\Dropbox\DropboxFile($file_path);
+    $uploadedFile = $dropbox->upload($dropboxFile, "/" . $file_name, ['autorename' => true]);
+
+    // Obtener la URL compartida
+    $sharedLink = $dropbox->createSharedLinkWithSettings("/" . $file_name);
+    $url = str_replace("dl=0", "dl=1", $sharedLink->getUrl());
+
+    // Guardar la URL en la base de datos
+    $stmt = $conn->prepare("INSERT INTO videos (question_name, description, url) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $question_name, $description, $url);
+    $stmt->execute();
+
+    $stmt->close();
+    $conn->close();
+
+    header("Location: success.php");
+    exit();
 }
-
-$conn->close();
 ?>

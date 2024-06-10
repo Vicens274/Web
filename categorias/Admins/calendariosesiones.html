@@ -186,7 +186,7 @@
                   Pregunta 1
               </button>
               <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-              <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+              <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
           </h2>
           <div id="collapse1" class="accordion-collapse collapse">
               <div class="accordion-body">
@@ -204,7 +204,7 @@
                 Pregunta 1
             </button>
             <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-            <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+            <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
         </h2>
         <div id="collapse2" class="accordion-collapse collapse">
             <div class="accordion-body">
@@ -222,7 +222,7 @@
               Pregunta 1
           </button>
           <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-          <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+          <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
       </h2>
       <div id="collapse3" class="accordion-collapse collapse">
           <div class="accordion-body">
@@ -240,7 +240,7 @@
             Pregunta 1
         </button>
             <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-            <button class="btn-delete btn btn-danger ms-2">Eliminar</button>
+            <button class="btn-delete btn btn-danger ms-2 " style="background-color: #db4437  !important; border-color: #db4437  !important;">Eliminar</button>
         
     </h2>
     <div id="collapse4" class="accordion-collapse collapse">
@@ -261,32 +261,35 @@
 </div>
 
 <div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleCrearLabel" style="font-weight: bold;">Añade una nueva pregunta.</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="videoUpload" class="form-label">Subir video (opcional)</label>
-                <input type="file" class="form-control" id="videoUpload" accept="video/mp4, video/webm, video/ogg">
-            </div>
-            <div class="text-center">
-                <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+            <div class="modal-body">
+                <form action="../../añadir/upload.php" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Nombre de la pregunta</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="question_name" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Descripción de la pregunta</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="videoUpload" class="form-label">Subir video (opcional)</label>
+                        <input type="file" class="form-control" id="videoUpload" name="video" accept="video/mp4, video/webm, video/ogg">
+                    </div>
+                    <div class="text-center">
+                        <button id="crearPregunta" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Añadir</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 
 
 <!-- Modal para editar pregunta -->

@@ -1,167 +1,105 @@
 <?php
-// Include config file
-require_once "config.php";
+require_once "check.php";
 
-// Define variables and initialize with empty values
-$usuario = $contraseña = $telefono = $email = $entidad = $estado = $rol = "";
-$usuario_err = $contraseña_err = $telefono_err = $email_err = $entidad_err = $estado_err = $rol_err = "";
+// Inicializar variables con valores vacíos
+$Usuario = $Contraseña = $Telefono = $Email = $Entidad = $Estado = $Rol = "";
 
-// Processing form data when form is submitted
+// Procesar el formulario cuando se envía
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate usuario
-    $input_usuario = trim($_POST["usuario"]);
-    if (empty($input_usuario)) {
-        $usuario_err = "Please enter a username.";
-    } else {
-        $usuario = $input_usuario;
+    // Obtener valores del formulario
+    $Usuario = $_POST["Usuario"];
+    $Contraseña = $_POST["Contraseña"];
+    $Telefono = $_POST["Telefono"];
+    $Email = $_POST["Email"];
+    $Entidad = $_POST["Entidad"];
+    $Estado = $_POST["Estado"];
+    $Rol = $_POST["Rol"];
+
+    // Consulta SQL para actualizar el registro
+    $sql = "UPDATE administradores 
+            SET Contraseña = :Contraseña, 
+                Telefono = :Telefono, 
+                Email = :Email, 
+                Entidad = :Entidad, 
+                Estado = :Estado, 
+                Rol = :Rol 
+            WHERE Usuario = :Usuario";
+
+    // Preparar la declaración
+    $stmt = $pdo->prepare($sql);
+
+    // Verificar y ejecutar la declaración
+    try {
+        $stmt->bindParam(":Contraseña", $Contraseña);
+        $stmt->bindParam(":Telefono", $Telefono);
+        $stmt->bindParam(":Email", $Email);
+        $stmt->bindParam(":Entidad", $Entidad);
+        $stmt->bindParam(":Estado", $Estado);
+        $stmt->bindParam(":Rol", $Rol);
+        $stmt->bindParam(":Usuario", $Usuario);
+        
+        // Ejecutar la declaración
+        $stmt->execute();
+
+        // Redirigir a la página de CRUD después de la actualización exitosa
+        header("Location: crud.php");
+        exit();
+    } catch (PDOException $e) {
+        // Mostrar mensaje de error si ocurre una excepción
+        echo "Error: " . $e->getMessage();
     }
-
-    // Validate contraseña
-    $input_contraseña = trim($_POST["contraseña"]);
-    if (empty($input_contraseña)) {
-        $contraseña_err = "Please enter a password.";
-    } else {
-        $contraseña = $input_contraseña;
-    }
-
-    // Validate telefono
-    $input_telefono = trim($_POST["telefono"]);
-    if (empty($input_telefono)) {
-        $telefono_err = "Please enter a phone number.";
-    } else {
-        $telefono = $input_telefono;
-    }
-
-    // Validate email
-    $input_email = trim($_POST["email"]);
-    if (empty($input_email)) {
-        $email_err = "Please enter an email address.";
-    } else {
-        $email = $input_email;
-    }
-
-    // Validate entidad
-    $input_entidad = trim($_POST["entidad"]);
-    if (empty($input_entidad)) {
-        $entidad_err = "Please enter an entity.";
-    } else {
-        $entidad = $input_entidad;
-    }
-
-    // Validate estado
-    $input_estado = trim($_POST["estado"]);
-    if (empty($input_estado)) {
-        $estado_err = "Please enter a state.";
-    } else {
-        $estado = $input_estado;
-    }
-
-    // Validate rol
-    $input_rol = trim($_POST["rol"]);
-    if (empty($input_rol)) {
-        $rol_err = "Please enter a role.";
-    } else {
-        $rol = $input_rol;
-    }
-
-    // Check input errors before inserting in database
-    if (empty($usuario_err) && empty($contraseña_err) && empty($telefono_err) && empty($email_err) && empty($entidad_err) && empty($estado_err) && empty($rol_err)) {
-        // Prepare an update statement
-        $sql = "UPDATE administradores SET Contraseña=:contraseña, Telefono=:telefono, Email=:email, Entidad=:entidad, Estado=:estado, Rol=:rol WHERE Usuario=:usuario";
-
-        if ($stmt = $pdo->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":usuario", $param_usuario);
-            $stmt->bindParam(":contraseña", $param_contraseña);
-            $stmt->bindParam(":telefono", $param_telefono);
-            $stmt->bindParam(":email", $param_email);
-            $stmt->bindParam(":entidad", $param_entidad);
-            $stmt->bindParam(":estado", $param_estado);
-            $stmt->bindParam(":rol", $param_rol);
-
-            // Set parameters
-            $param_usuario = $usuario;
-            $param_contraseña = $contraseña;
-            $param_telefono = $telefono;
-            $param_email = $email;
-            $param_entidad = $entidad;
-            $param_estado = $estado;
-            $param_rol = $rol;
-
-            // Attempt to execute the prepared statement
-            if ($stmt->execute()) {
-                // Records updated successfully. Redirect to landing page
-                header("location: crud.php");
-                exit();
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-
-        // Close statement
-        unset($stmt);
-    }
-
-    // Close connection
-    unset($pdo);
 } else {
-    // Check existence of usuario parameter before processing further
-    if (isset($_GET["usuario"]) && !empty(trim($_GET["usuario"]))) {
-        // Get URL parameter
-        $usuario = trim($_GET["usuario"]);
+    // Verificar si se recibe el parámetro de ID por GET
+    if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+        // Consulta SQL para obtener los datos del registro específico
+        $sql = "SELECT * FROM administradores WHERE Usuario = :Usuario";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(":Usuario", $param_Usuario);
+        $param_Usuario = trim($_GET["id"]);
 
-        // Prepare a select statement
-        $sql = "SELECT * FROM administradores WHERE Usuario = :usuario";
-        if ($stmt = $pdo->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":usuario", $param_usuario);
-
-            // Set parameters
-            $param_usuario = $usuario;
-
-            // Attempt to execute the prepared statement
-            if ($stmt->execute()) {
-                if ($stmt->rowCount() == 1) {
-                    /* Fetch result row as an associative array. Since the result set
-                    contains only one row, we don't need to use while loop */
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    // Retrieve individual field value
-                    $contraseña = $row["Contraseña"];
-                    $telefono = $row["Telefono"];
-                    $email = $row["Email"];
-                    $entidad = $row["Entidad"];
-                    $estado = $row["Estado"];
-                    $rol = $row["Rol"];
-                } else {
-                    // URL doesn't contain valid usuario. Redirect to error page
-                    header("location: error.php");
-                    exit();
-                }
+        // Ejecutar la declaración y verificar si se obtuvo un registro
+        if ($stmt->execute()) {
+            if ($stmt->rowCount() == 1) {
+                // Obtener los datos del registro en un array asociativo
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $Usuario = $row["Usuario"];
+                $Contraseña = $row["Contraseña"];
+                $Telefono = $row["Telefono"];
+                $Email = $row["Email"];
+                $Entidad = $row["Entidad"];
+                $Estado = $row["Estado"];
+                $Rol = $row["Rol"];
             } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                // Redirigir a la página de error si no se encuentra el registro
+                header("location: error.php");
+                exit();
             }
+        } else {
+            // Mostrar mensaje de error si ocurre un problema al ejecutar la consulta
+            echo "Oops! Algo salió mal. Por favor, intente nuevamente más tarde.";
         }
-
-        // Close statement
-        unset($stmt);
-
-        // Close connection
-        unset($pdo);
+    } else {
+        // Redirigir a la página de error si no se recibe el parámetro de ID
+        header("location: error.php");
+        exit();
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Update Record</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Administrador</title>
+    <link rel="stylesheet" href="../contactanos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
+        .ocultar-menu {
+            display: none;
         }
     </style>
 </head>
@@ -170,48 +108,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Update Record</h2>
-                    <p>Please edit the input values and submit to update the administrator record.</p>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" name="usuario" class="form-control <?php echo (!empty($usuario_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $usuario; ?>">
-                            <span class="invalid-feedback"><?php echo $usuario_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="contraseña" class="form-control <?php echo (!empty($contraseña_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $contraseña; ?>">
-                            <span class="invalid-feedback"><?php echo $contraseña_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" name="telefono" class="form-control <?php echo (!empty($telefono_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $telefono; ?>">
-                            <span class="invalid-feedback"><?php echo $telefono_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-                            <span class="invalid-feedback"><?php echo $email_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Entity</label>
-                            <input type="text" name="entidad" class="form-control <?php echo (!empty($entidad_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $entidad; ?>">
-                            <span class="invalid-feedback"><?php echo $entidad_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>State</label>
-                            <input type="text" name="estado" class="form-control <?php echo (!empty($estado_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $estado; ?>">
-                            <span class="invalid-feedback"><?php echo $estado_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Role</label>
-                            <input type="text" name="rol" class="form-control <?php echo (!empty($rol_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $rol; ?>">
-                            <span class="invalid-feedback"><?php echo $rol_err; ?></span>
-                        </div>
-                        <input type="hidden" name="usuario" value="<?php echo $usuario; ?>"/>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
-                    </form>
+                    <div class="mt-5 mb-3">
+                        <h2>Actualizar Administrador</h2>
+                        <p>Por favor, complete este formulario para actualizar la información del administrador.</p>
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . $_GET["id"]; ?>" method="post">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input type="text" name="Usuario" class="form-control" value="<?php echo htmlspecialchars($Usuario); ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Contraseña</label>
+                                <input type="text" name="Contraseña" class="form-control" value="<?php echo htmlspecialchars($Contraseña); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="text" name="Telefono" class="form-control" value="<?php echo htmlspecialchars($Telefono); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name="Email" class="form-control" value="<?php echo htmlspecialchars($Email); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Entidad</label>
+                                <input type="text" name="Entidad" class="form-control" value="<?php echo htmlspecialchars($Entidad); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <input type="text" name="Estado" class="form-control" value="<?php echo htmlspecialchars($Estado); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Rol</label>
+                                <input type="text" name="Rol" class="form-control" value="<?php echo htmlspecialchars($Rol); ?>">
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Actualizar">
+                            <a href="crud.php" class="btn btn-secondary">Cancelar</a>
+                        </form>
+                    </div>
                 </div>
             </div>        
         </div>
