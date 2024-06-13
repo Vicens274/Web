@@ -1,3 +1,7 @@
+<?php
+session_start();
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -88,10 +92,12 @@
 
     </div>
 
+    <?php if ($rol === 'superadministrador') : ?>
     <div class="d-flex justify-content-center align-items-center">
         <button id="btnAñadirSeccion" type="button" class="mayuscula btn btn-primary " data-bs-toggle="modal" data-bs-target="#example" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important;">
             Añadir Seccion
         </button>
+        <?php endif; ?>
 
         <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleLabel" aria-hidden="true">
             <div class="modal-dialog">

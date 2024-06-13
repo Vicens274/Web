@@ -1,3 +1,7 @@
+<?php
+session_start();
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" crossorigin="anonymous"></script>
 
+
     <style>
         .ocultar-menu {
           display: none;
@@ -22,41 +27,45 @@
         }
     </style>
 
-    
-
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
-        <a href="./index.html">
-        <img class="logo navbar-brand" style="margin-right: -8em !important;" src="./Imagenes/logoGalileo.png"></img>
-        </a>
+          
+            <a href="./index.html">
+                <img class="logo navbar-brand" style="margin-right: -8em !important;" src="./Imagenes/logoGalileo.png"></img>
+            </a>
           <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
           </button>
-          <div class="menu-posicion collapse navbar-collapse" id="navbarNavDropdown">
+          <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="menu nav-link" href="./index.html">Inicio</a>
-                  </li>
-                  <li class="nav-item ocultar-menu">
-                    <a class="menu nav-link"  aria-current="page" href="./categorias.html">Categorías</a>
-                  </li>   
+              <li class="nav-item">
+                <a class="menu nav-link" href="./index.html">Inicio</a>
+              </li>
+              <li class="nav-item ocultar-menu">
+                <a class="menu nav-link" href="./categorias.html">Categorías</a>
+              </li>
                   <li class="nav-item">
                     <a class="menu nav-link" href="./contactanos.html">Contáctanos</a>
                 </li>
             </ul>
+        
+            </div>
           </div>
         </div>
     </nav>
+
+    <div class="wrapper">
+
     <div class="container-fluid padding-abajo">
         <div class="row justify-content-center">
             <div class="banner" style="width: 67% !important; text-align: left !important;">
                 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="./index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="./dashboard.html" style="text-decoration: none !important; color: #3552A6 !important;">Categorias</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Administradores</li>
+                    <li class="breadcrumb-item"><a href="./dashboard.php" style="text-decoration: none !important; color: #3552A6 !important;">Categorías</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Taquilleros</li>
                     </ol>
                 </nav>
             </div>
@@ -65,7 +74,7 @@
 
     <div class="row subir-banner" style="--bs-gutter-x: 0 !important; margin-top: 4em !important; margin-bottom: 1em !important;">
         <div class="col text-center">
-            <h1 class="pb-3" style="color: #3552A6 !important; font-size: 44px !important;">Administradores</h1>
+            <h1 class="pb-3" style="color: #3552A6 !important; font-size: 44px !important;">Taquilleros</h1>
         </div>
     </div>           
 
@@ -74,92 +83,76 @@
             <div class="col-12 col-md-9" id="sectionContainer">
                 <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" id="sortable">
                     <div class="col">
-                        <a href="./categorias/Admins/primerospasos.html" style="text-decoration: none !important;">
+                        <a href="./categorias/Admins/calendariosesiones.html" style="text-decoration: none !important;">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Primeros Pasos - Galileo</h5>
-                                <p class="card-text">Un recorrido especializado para comenzar tu experiencia con Galileo, nuestra plataforma emblemática.</p>
+                                <h5 class="card-title">Calendario de Sesiones</h5>
+                                <p class="card-text">Mantente al tanto de las sesiones, eventos y fechas importantes con nuestro calendario integrado.</p>
                             </div>
                         </div>
                         </a>
                     </div>
                     <div class="col">
-                        <a href="./categorias/Admins/productos.html" style="text-decoration: none !important;">
+                        <a href="./categorias/Admins/escaner.html" style="text-decoration: none !important;">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Productos</h5>
-                                <p class="card-text">Crea, activa y vende tus servicios o productos a los usuarios.</p>
+                                <h5 class="card-title">Escáner</h5>
+                                <p class="card-text">Explora y busca rápidamente información relevante con nuestra herramienta de escaneo avanzada.</p>
                             </div>
                         </div>
                         </a>
                     </div>
                     <div class="col">
-                        <a href="./categorias/Admins/estadisticas.html" style="text-decoration: none !important;">
+                        <a href="./categorias/Admins/ventas.html" style="text-decoration: none !important;">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Estadísticas</h5>
-                                <p class="card-text">Accede a datos detallados y análisis para tomar decisiones informadas.</p>
+                                <h5 class="card-title">Ventas</h5>
+                                <p class="card-text">Controla y administra todas tus ventas y su estado desde nuestro panel para administradores.</p>
                             </div>
                         </div>
                         </a>
                     </div>
-                    <div class="col">
-                        <a href="./categorias/Admins/entidades.html" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Entidades</h5>
-                                <p class="card-text">Controla y modifica tu propia entidad.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                   <div class="col">
-                        <a href="./categorias/Admins/reservar.html" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Reservar</h5>
-                                <p class="card-text">Asegura tu lugar para eventos, citas o servicios reservables con nuestra función de reserva integrada.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
+
+            
+            <?php if ($rol === 'superadministrador') : ?>
             <div class="d-flex justify-content-center align-items-center">
-                <button id="btnAñadirSeccion" type="button" class="mayuscula btn btn-primary " data-bs-toggle="modal" data-bs-target="#example" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important;">
-                    Añadir Seccion
-                  </button>
-                  
-                  <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleLabel" style="font-weight: bold;">Añade una nueva sección.</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Nombre de la sección</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Descripción de la sección</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <button id="btnAñadirSeccion" type="button" class="mayuscula btn btn-primary " data-bs-toggle="modal" data-bs-target="#example" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important;">
+                        Añadir Seccion
+                    </button>
+            <?php endif; ?>
+
+                    <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleLabel" style="font-weight: bold;">Añade una nueva sección.</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="text-center">
-                                <button id="crearSeccion" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Crear</button>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Nombre de la sección</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Descripción de la sección</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button id="crearSeccion" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Crear</button>
+                                </div>
                             </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
             </div>
         </div>
-        </div>
     </div>
-    
+    </div>
          <!-- Modal para editar seccion -->
-         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -182,8 +175,9 @@
                 </div>
             </div>
     </div>
+    
 
-    <footer class="footer w-100">
+    <footer class="footer w-100 stickyfooter">
         <div class="row px-5 py-5" style="--bs-gutter-x: 0 !important;">
             <div class="container">
                 <div class="row">
@@ -209,11 +203,11 @@
         <style>
             .smaller-image {
               max-width: 12em; /* Ancho máximo de la imagen */
-              max-height: 12em; /* Altura máxima de la image */
+              max-height: 12em; /* Altura máxima de la imagen */
             }
         </style>
 
-        <div class="container text-center " style="padding-top: 15px !important; border-top: 2px solid white !important;">
+        <div class="container text-center" style="padding-top: 15px !important; border-top: 2px solid white !important;">
             <div class="row-cols-sm-2">
              <span class="">© 2024 Powered by Saudeter</span>
             </div>
@@ -223,15 +217,14 @@
             </div>
         </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var sortable = document.getElementById('sortable');
             var categorias = [
-                { nombre: 'Primeros Pasos - Galileo', descripcion: 'Un recorrido especializado para comenzar tu experiencia con Galileo, nuestra plataforma emblemática.', link: './categorias/Admins/primerospasos.html' },
-                { nombre: 'Productos', descripcion: 'Crea, activa y vende tus servicios o productos a los usuarios.', link: './categorias/Admins/productos.html' },
-                { nombre: 'Estadísticas', descripcion: 'Accede a datos detallados y análisis para tomar decisiones informadas.', link: './categorias/Admins/estadisticas.html' },
-                { nombre: 'Entidades', descripcion: 'Controla y modifica tu propia entidad.', link: './categorias/Admins/entidades.html' },
-                { nombre: 'Reservar', descripcion: 'Asegura tu lugar para eventos, citas o servicios reservables con nuestra función de reserva integrada.', link: './categorias/Admins/reservar.html' }
+                { nombre: 'Calendario de Sesiones', descripcion: 'Mantente al tanto de las sesiones, eventos y fechas importantes con nuestro calendario integrado.', link: './categorias/Admins/calendariosesiones.php' },
+                { nombre: 'Escáner', descripcion: 'Explora y busca rápidamente información relevante con nuestra herramienta de escaneo avanzada.', link: './categorias/Admins/escaner.php' },
+                { nombre: 'Ventas', descripcion: 'Controla y administra todas tus ventas y su estado desde nuestro panel para administradores.', link: './categorias/Admins/ventas.php' }
             ];
 
             function crearTarjeta(categoria, index) {
@@ -256,6 +249,7 @@
                 link.href = categoria.link;
                 link.style.textDecoration = 'none';
 
+                <?php if ($rol === 'superadministrador') : ?>
                 var editButton = document.createElement('button');
                 editButton.classList.add('btn', 'btn-secondary', 'mt-2');
                 editButton.textContent = 'Editar';
@@ -270,10 +264,12 @@
                     document.getElementById('guardarCambios').dataset.index = this.dataset.index;
                 });
 
+                cardBody.appendChild(editButton);
+                <?php endif; ?>
+
 
                 cardBody.appendChild(titulo);
                 cardBody.appendChild(descripcion);
-                cardBody.appendChild(editButton);
                 card.appendChild(cardBody);
                 link.appendChild(card);
                 col.appendChild(link);
@@ -329,5 +325,6 @@
             actualizarLista();
         });
     </script>
+    
 </body>
 </html>

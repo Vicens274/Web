@@ -1,3 +1,7 @@
+<?php
+session_start();
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -191,9 +195,12 @@
         <div class="row justify-content-center">
             <div class="banner" style="width: 67% !important; text-align: left !important;">
                 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="cuentasub.html" style="text-decoration: none !important; color: #212529BF !important;">Cuentas Subordinadas</a></li>
+                        <li class="breadcrumb-item"><a href="../../menu.html" style="text-decoration: none !important; color: #3552A6 !important;">¿Qué eres?</a></li>
+                        <li class="breadcrumb-item"><a href="../../menusuarios.php" style="text-decoration: none !important; color: #3552A6 !important;">Usuarios</a></li>
+                        <li class="breadcrumb-item"><a href="../../usuariogeneral.html" style="text-decoration: none !important; color: #3552A6 !important;">Tienda Pública</a></li>
+                        <li class="breadcrumb-item"><a href="./cuentasub.php" style="text-decoration: none !important; color: #212529BF !important;">Cuenta Subordinada</a></li>
                     </ol>
                 </nav>
             </div>
@@ -206,9 +213,12 @@
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
                   Pregunta 1
               </button>
-              <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-              <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
-          </h2>
+              <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
           <div id="collapse1" class="accordion-collapse collapse">
               <div class="accordion-body">
                   Contenido de la pregunta 1.
@@ -224,8 +234,11 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
                 Pregunta 1
             </button>
-            <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-            <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
         </h2>
         <div id="collapse2" class="accordion-collapse collapse">
             <div class="accordion-body">
@@ -242,9 +255,12 @@
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
               Pregunta 1
           </button>
-          <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-          <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
-      </h2>
+          <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
       <div id="collapse3" class="accordion-collapse collapse">
           <div class="accordion-body">
               Contenido de la pregunta 1.
@@ -260,9 +276,10 @@
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
             Pregunta 1
         </button>
-            <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-            <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
-        
+        <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>        
     </h2>
     <div id="collapse4" class="accordion-collapse collapse">
         <div class="accordion-body">
@@ -278,11 +295,12 @@
 </div>
 </div>
 
+<?php if ($rol === 'superadministrador') : ?>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
+        </div>
+<?php endif; ?>
 
-
-<div class="text-center">
-    <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
-</div>
 
 <div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
   <div class="modal-dialog">

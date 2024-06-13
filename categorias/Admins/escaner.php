@@ -1,10 +1,14 @@
+<?php
+session_start();
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripciones</title>
-    <link rel="stylesheet" href="./clientes.css">
+    <title>Escáner</title>
+    <link rel="stylesheet" href="./admins.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -130,6 +134,7 @@
         });
       });
   </script>
+        
     <style>
       .ocultar-menu {
         display: none;
@@ -160,13 +165,13 @@
     </style>
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
           <a href="../../index.html">
-            <img class="logo navbar-brand" style="margin-right: -8em !important;" style="margin-right: -8em !important;" src="../../Imagenes/logoGalileo.png"></img>
+            <img class="logo navbar-brand" style="margin-right: -8em !important;" src="../../Imagenes/logoGalileo.png"></img>
           </a>
-            
-            <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
           </button>
           <div class="menu-posicion collapse navbar-collapse" id="navbarNavDropdown">
@@ -175,7 +180,7 @@
                   <a class="menu nav-link" href="../../index.html">Inicio</a>
                 </li>
                 <li class="nav-item ocultar-menu">
-                  <a class="menu nav-link"  aria-current="page" href="../../categorias.html">Categorías</a>
+                  <a class="menu nav-link" aria-current="page" href="./categorias.html">Categorías</a>
                 </li>   
                 <li class="nav-item">
                   <a class="menu nav-link" href="../../contactanos.html">Contáctanos</a>
@@ -191,7 +196,9 @@
                 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="inscripciones.html" style="text-decoration: none !important; color: #212529BF !important;">Inscripciones</a></li>
+                        <li class="breadcrumb-item"><a href="../../dashboard.php" style="text-decoration: none !important; color: #3552A6 !important;">Categorias</a></li>
+                        <li class="breadcrumb-item"><a href="../../taquilleros.php" style="text-decoration: none !important; color: #3552A6 !important;">Taquilleros</a></li>
+                        <li class="breadcrumb-item"><a href="escaner.php" style="text-decoration: none !important; color: #212529BF !important;">Escáner</a></li>
                     </ol>
                 </nav>
             </div>
@@ -204,9 +211,12 @@
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
                   Pregunta 1
               </button>
-              <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-              <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;"s>Eliminar</button>
-          </h2>
+              <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
           <div id="collapse1" class="accordion-collapse collapse">
               <div class="accordion-body">
                   Contenido de la pregunta 1.
@@ -222,8 +232,11 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
                 Pregunta 1
             </button>
-            <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-            <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
         </h2>
         <div id="collapse2" class="accordion-collapse collapse">
             <div class="accordion-body">
@@ -240,9 +253,12 @@
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
               Pregunta 1
           </button>
-          <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-          <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
-      </h2>
+          <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
       <div id="collapse3" class="accordion-collapse collapse">
           <div class="accordion-body">
               Contenido de la pregunta 1.
@@ -258,9 +274,10 @@
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
             Pregunta 1
         </button>
-            <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
-            <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
-        
+        <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>        
     </h2>
     <div id="collapse4" class="accordion-collapse collapse">
         <div class="accordion-body">
@@ -277,10 +294,11 @@
 </div>
 
 
-
-<div class="text-center">
-    <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
-</div>
+<?php if ($rol === 'superadministrador') : ?>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#exampleCrear" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important; text-transform: uppercase !important;">Añadir Pregunta</button> 
+        </div>
+<?php endif; ?>
 
 <div class="modal fade" id="exampleCrear" tabindex="-1" aria-labelledby="exampleCrearLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -345,7 +363,7 @@
         <div class="row px-5 py-5" style="--bs-gutter-x: 0 !important;">
           <div class="container">
             <div class="row">
-                <div class="col-sm-4  d-flex justify-content-center pad-abajo"> 
+                <div class="col-sm-4 d-flex justify-content-center pad-abajo"> 
                     <img src="../../Imagenes/Diseño_sin_título__5___1_-removebg-preview.png" alt="Logo" class="img-fluid smaller-image">
                 </div>
                 <div class="col-sm-4 pad-abajo">
@@ -356,11 +374,12 @@
                     <h5>Links Rápidos</h5>
                     <ul>
                         <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
-                        <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Eventos</a></li>
-                        <li><a href="../../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Contacto</a></li>
+                        <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
+                        <li><a href="../../contactanos.html" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                     </ul>
                 </div>
             </div>
+        </div>
         </div>
 
         <style>

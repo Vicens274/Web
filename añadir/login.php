@@ -1,4 +1,5 @@
 <?php
+session_start(); // Iniciar la sesión
 include('check.php');
 
 $estado = "error";
@@ -22,11 +23,10 @@ if(isset($_POST['submit'])) {
 
         // Comprobar la contraseña
         if ($row['Contraseña'] === $password) {  // Solo si las contraseñas están en texto plano
-            $rol = $row['Rol'];
-            
-            if ($rol == 'superadministrador' || $rol == 'administrador') {
-                $estado = "success"; 
-            }
+            $_SESSION['rol'] = $row['Rol']; // Guardar el rol en la sesión
+            $_SESSION['username'] = $row['Usuario']; // Guardar el nombre de usuario en la sesión
+            $_SESSION['loggedin'] = true; // Marcar como autenticado
+            $estado = "success";
         } else {
             echo "Contraseña incorrecta";
         }
@@ -35,10 +35,8 @@ if(isset($_POST['submit'])) {
     }
 }
 
-if ($estado === "success" && $rol === "superadministrador") {
-    header('Location: ../dashboard.html?estado=success&rol=superadministrador');
-} elseif ($estado === "success" && $rol === "administrador") {
-    header('Location: ../dashboard.html?estado=success&rol=administrador');
+if ($estado === "success") {
+    header('Location: ../dashboard.php');
 } else {
     header('Location: ../categorias.html?estado=error');
 }

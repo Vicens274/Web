@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: login.php'); // Redirigir al login si no está autenticado
+    exit;
+}
+
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener el nombre de usuario de la sesión
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -62,12 +74,20 @@
           
         </ul>
         <div>
-          <a class="d-flex" style="text-decoration: none !important;" href="../dashboard.html">
-            <button type="button" class="mayuscula btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important;">
-                Volver
-            </button>
-            </a>
-        </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white !important;">
+                                <?php echo $usuario; ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
+                                <li><a class="dropdown-item" href="../dashboard.php">Volver</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="./index.html">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
       </div>
     </div>
 </nav>
