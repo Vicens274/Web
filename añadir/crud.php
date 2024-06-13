@@ -54,7 +54,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
   <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
     <div class="container-fluid">
       
-      <a href="../index.html">
+      <a href="../index.php">
         <img class="logo navbar-brand" src="../Imagenes/logoGalileo.png"></img>
       </a>
         <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,13 +63,13 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
       <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="menu nav-link" aria-current="page" href="../index.html">Inicio</a>
+            <a class="menu nav-link" aria-current="page" href="../index.php">Inicio</a>
           </li>
           <li class="nav-item ocultar-menu">
-            <a class="menu nav-link" href="../categorias.html">Categorías</a>
+            <a class="menu nav-link" href="../categorias.php">Categorías</a>
           </li>
           <li class="nav-item">
-            <a class="menu nav-link" href="../contactanos.html">Contáctanos</a>
+            <a class="menu nav-link" href="../contactanos.php">Contáctanos</a>
           </li>
           
         </ul>
@@ -83,7 +83,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
                                 <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
                                 <li><a class="dropdown-item" href="../dashboard.php">Volver</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="./index.html">Cerrar Sesión</a></li>
+                                <li><a class="dropdown-item" href="../index.php">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -17,12 +17,10 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="icon" href="./Imagenes/favicon.png" type="image/png" sizes="16x16">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
  
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
             <a href="./index.php">
@@ -36,9 +34,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
                     <li class="nav-item">
                         <a class="menu nav-link" aria-current="page" href="./index.php">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="menu nav-link" href="./menu.php">Información</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="menu nav-link" href="./contactanos.php">Contáctanos</a>
                     </li>
@@ -76,26 +72,27 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
         </div>
     </nav>
 
+    <div class="wrapper">
+      
 
-    <div class="container-fluid padding-abajo" style="padding-top: 5em !important;">
-        <div class="row justify-content-center">
-            <div class="" style="width: 67% !important; text-align: left !important;">
-            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="./index.php" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="./menu.php" style="text-decoration: none !important; color: #3552A6 !important;">¿Qué eres?</a></li>
-                        <li class="breadcrumb-item"><a href="./menusuarios.php" style="text-decoration: none !important; color: #212529BF !important;">Usuarios</a></li>
-                    </ol>
-                </nav>
-            </div>
+    <div class="row subir-banner" style="--bs-gutter-x: 0 !important; background-color: #3552A6;">
+        <div class="col banner text-center">
+            <h1 class="text-white pb-3" style="color: white !important; font-size: 44px !important;">¿Qué deseas buscar?</h1>
+            <form class="d-flex justify-content-center">
+                <div class="input-group estirado">
+                    <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+                    <button class="btn btn-primary boton-busqueda d-none d-md-inline" type="submit" style="text-transform: uppercase !important;">Buscar</button>
+                    <span class="btn btn-primary boton-busqueda d-md-none" type="submit"><i class="bi bi-search"></i></span>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="text-center">
-        <h1 class="d-flex justify-content-center pb-5"  style="color: #3552A6 !important; font-size: 44px !important;">Categorías Usuario</h1>
+    <div class="text-center" style="padding-top: 5em !important;">
+        <h1 class="d-flex justify-content-center pb-5"  style="color: #3552A6 !important; font-size: 44px !important;">Base de conocimentos</h1>
     </div>
 
-    <div class="contenido-estirado">
+        <div class="contenido-estirado">
       <div class="padding-abajo">
           <div class="row justify-content-center" style="--bs-gutter-x: 0 !important;">      
               <div class="col-12 col-md-9">
@@ -104,11 +101,21 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
                     <a href="./usuariogeneral.php" style="text-decoration: none !important;">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h3 class="card-title">Tienda Pública</h3>
+                            <h3 class="card-title">Usuario</h3>
                             <p class="card-text">Guía paso a paso para acceder y navegar por la tienda pública.</p>
                         </div>
                     </div>
                 </a>
+                </div>
+                <div class="col">
+                    <a href="./categorias.php" style="text-decoration: none !important;">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">Administradores</h3>
+                            <p class="card-text">Accede al panel de administradores.</p>
+                        </div>
+                    </div>
+                    </a>
                 </div>
                 </div>
               </div>
@@ -116,38 +123,6 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
       </div>
     </div>
 
-    </div>
-
-    <?php if ($rol === 'superadministrador') : ?>
-    <div class="d-flex justify-content-center align-items-center">
-        <button id="btnAñadirSeccion" type="button" class="mayuscula btn btn-primary " data-bs-toggle="modal" data-bs-target="#example" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important; margin-top: 3em !important;">
-            Añadir Seccion
-        </button>
-        <?php endif; ?>
-
-        <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleLabel" style="font-weight: bold;">Añade una nueva sección.</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Nombre de la sección</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Descripción de la sección</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button id="crearSeccion" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block d-flex mx-auto mb-3" style="background-color: #3552A6 !important; border-color: #3552A6 !important; text-transform: uppercase !important; font-weight: 600 !important;">Crear</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <footer class="footer w-100 stickyfooter">

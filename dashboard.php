@@ -3,9 +3,10 @@ session_start();
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: login.php'); // Redirigir al login si no está autenticado
+    header('Location: ./categorias.php'); // Redirigir al login si no está autenticado
     exit;
 }
+
 
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener el nombre de usuario de la sesión
@@ -37,8 +38,8 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
-            <a href="./index.html">
-                <img class="logo navbar-brand" style="margin-right: 3em !important;" src="./Imagenes/logoGalileo.png"></img>
+            <a href="./index.php">
+                <img class="logo navbar-brand" style="margin-right: -2em !important;" src="./Imagenes/logoGalileo.png"></img>
             </a>
             <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
@@ -46,13 +47,13 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
             <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="menu nav-link" aria-current="page" href="./index.html">Inicio</a>
+                        <a class="menu nav-link" aria-current="page" href="./index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="menu nav-link" href="./menu.html">Información</a>
+                        <a class="menu nav-link ocultar-menu" href="./menu.php">Información</a>
                     </li>
                     <li class="nav-item">
-                        <a class="menu nav-link" href="./contactanos.html">Contáctanos</a>
+                        <a class="menu nav-link" href="./contactanos.php">Contáctanos</a>
                     </li>
                 </ul>
                 <div>
@@ -62,11 +63,16 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
                                 <?php echo $usuario; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
-                                <li><a class="dropdown-item" href="./añadir/crud.php">Administradores</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="./index.html">Cerrar Sesión</a></li>
-                            </ul>
+                                    <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
+                                    <?php if ($rol === 'superadministrador') : ?>
+                                    <li><a class="dropdown-item" href="./añadir/crud.php">Administradores</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <?php else : ?>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <?php endif; ?>
+                                </ul>
                         </li>
                     </ul>
                 </div>
@@ -76,10 +82,10 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
     <div class="container-fluid padding-abajo">
         <div class="row justify-content-center">
             <div class="banner" style="width: 67% !important; text-align: left !important;">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="./index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Categorias</li>
+                    <li class="breadcrumb-item"><a href="./index.php" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Roles</li>
                     </ol>
                 </nav>
             </div>
@@ -176,7 +182,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
                         <ul>
                             <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                             <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
-                            <li><a href="./contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
+                            <li><a href="./contactanos.php"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                         </ul>
                     </div>
                 </div>

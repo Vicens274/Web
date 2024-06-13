@@ -1,6 +1,10 @@
 <?php
 session_start();
-$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+
+// Verificar si el usuario está autenticado
+$is_logged_in = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
+$rol = $is_logged_in ? $_SESSION['rol'] : '';
+$usuario = $is_logged_in ? $_SESSION['username'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -164,49 +168,76 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
+<div class="wrapper">
+<div class="content">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
-          <a href="../../index.html">
-            <img class="logo navbar-brand" style="margin-right: -8em !important;" src="../../Imagenes/logoGalileo.png"></img>
-          </a>
-          <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
-          </button>
-          <div class="menu-posicion collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="menu nav-link" href="../../index.html">Inicio</a>
-                </li>
-                <li class="nav-item ocultar-menu">
-                  <a class="menu nav-link"  aria-current="page" href="../../categorias.html">Categorías</a>
-                </li>   
-                <li class="nav-item">
-                  <a class="menu nav-link" href="../../contactanos.html">Contáctanos</a>
-              </li>
-          </ul>
-
-          </div>
+            <a href="../../index.php">
+                <img class="logo navbar-brand" src="../../Imagenes/logoGalileo.png"></img>
+            </a>
+            <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
+            </button>
+            <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="menu nav-link" aria-current="page" href="../../index.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="menu nav-link" href="../../menu.php">Información</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="menu nav-link" href="../../contactanos.php">Contáctanos</a>
+                    </li>
+                </ul>
+                <div>
+                    <?php if ($is_logged_in) : ?>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white !important;">
+                                    <?php echo $usuario; ?> 
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
+                                    <?php if ($rol === 'superadministrador') : ?>
+                                    <li><a class="dropdown-item" href="./añadir/crud.php">Administradores</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <?php else : ?>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php else : ?>
+                        <a class="d-flex" style="text-decoration: none !important;" href="../../categorias.php">
+                        <button type="button" class="mayuscula btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important;">
+                            Identifícate
+                        </button>
+                        </a>
+                        <form id="loginForm"></form>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     </nav>
-
-    <div class="container-fluid padding-abajo">
+    <div class="container-fluid padding-abajo ">
         <div class="row justify-content-center">
-            <div class="banner" style="width: 67% !important; text-align: left !important;">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../../index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="../../menu.html" style="text-decoration: none !important; color: #3552A6 !important;">¿Qué eres?</a></li>
-                        <li class="breadcrumb-item"><a href="../../menusuarios.php" style="text-decoration: none !important; color: #3552A6 !important;">Usuarios</a></li>
-                        <li class="breadcrumb-item"><a href="../../usuariogeneral.html" style="text-decoration: none !important; color: #3552A6 !important;">Tienda Pública</a></li>
-                        <li class="breadcrumb-item"><a href="./cuentaauto.php" style="text-decoration: none !important; color: #212529BF !important;">Cuenta Automatizada</a></li>
+            <div style="width: 67% !important; text-align: left !important; padding-top: 2em !important;">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="../../index.php" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="../../usuariogeneral.php" style="text-decoration: none !important; color: #3552A6 !important;">Usuario</a></li>
+                        <li class="breadcrumb-item"><a href="./cuentaauto.php" style="text-decoration: none !important; color: #212529BF !important;">Cuenta Autorizada</a></li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
 
-    <div class="margenpri accordion container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important;">
+
+    <div class="margenpri accordion container-fluid1 container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important;">
       <div class="accordion-item">
           <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
@@ -358,7 +389,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
         </div>
     </div>
 </div>
-
+</div>
     
     <footer class="footer w-100">
         <div class="row px-5 py-5" style="--bs-gutter-x: 0 !important;">
@@ -376,7 +407,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                     <ul>
                         <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                         <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Eventos</a></li>
-                        <li><a href="../../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Contacto</a></li>
+                        <li><a href="../../contactanos.php"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Contacto</a></li>
                     </ul>
                 </div>
             </div>
@@ -388,6 +419,15 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
             max-width: 12em; /* Ancho máximo de la imagen */
             max-height: 12em; /* Altura máxima de la imagen */
           }
+
+          .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
       </style>
 
         <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">

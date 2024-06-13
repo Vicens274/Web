@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: login.php'); // Redirigir al login si no está autenticado
+    exit;
+}
+
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener el nombre de usuario de la sesión
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,10 +35,10 @@
  
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
     <div class="container-fluid">
       
-      <a href="../index.html">
+      <a href="../index.php">
         <img class="logo navbar-brand" src="../Imagenes/logoGalileo.png"></img>
       </a>
         <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,28 +47,34 @@
       <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="menu nav-link" aria-current="page" href="../index.html">Inicio</a>
+            <a class="menu nav-link" aria-current="page" href="../index.php">Inicio</a>
           </li>
           <li class="nav-item ocultar-menu">
-            <a class="menu nav-link" href="../categorias.html">Categorías</a>
+            <a class="menu nav-link" href="../categorias.php">Categorías</a>
           </li>
           <li class="nav-item">
-            <a class="menu nav-link" href="../contactanos.html">Contáctanos</a>
+            <a class="menu nav-link" href="../contactanos.php">Contáctanos</a>
           </li>
           
         </ul>
         <div>
-          <a class="d-flex" style="text-decoration: none !important;" href="../categorias.html">
-            <button type="button" class="mayuscula btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #6BE5DA !important; color: #3552A6 !important; border-radius: 4px !important; border-color: #6BE5DA !important; font-weight: bold !important;">
-                Identifícate
-            </button>
-            </a>
-        </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white !important;">
+                                <?php echo $usuario; ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
+                                <li><a class="dropdown-item" href="../dashboard.php">Volver</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="../index.php">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
       </div>
-
     </div>
 </nav>
-
 
   <div class="row subir-banner" style="--bs-gutter-x: 0 !important; margin-top: 4em !important; margin-bottom: 1em !important;">
     <div class="col text-center">
@@ -147,7 +165,7 @@
                       <ul>
                           <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
                           <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
-                          <li><a href="../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
+                          <li><a href="../contactanos.php"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                       </ul>
                   </div>
               </div>

@@ -38,6 +38,6 @@ if(isset($_POST['submit'])) {
 if ($estado === "success") {
     header('Location: ../dashboard.php');
 } else {
-    header('Location: ../categorias.html?estado=error');
+    header('Location: ../categorias.php?estado=error');
 }
 ?>

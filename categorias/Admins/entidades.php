@@ -1,6 +1,15 @@
 <?php
 session_start();
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: ./categorias.php'); // Redirigir al login si no está autenticado
+    exit;
+}
+
+
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener el nombre de usuario de la sesión
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -164,38 +173,57 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
-          <a href="../../index.html">
-            <img class="logo navbar-brand" style="margin-right: -8em !important;" src="../../Imagenes/logoGalileo.png"></img>
-          </a>
-          <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
-          </button>
-          <div class="menu-posicion collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="menu nav-link" href="../../index.html">Inicio</a>
-                </li>
-                <li class="nav-item ocultar-menu">
-                  <a class="menu nav-link"  aria-current="page" href="./categorias.html">Categorías</a>
-                </li>   
-                <li class="nav-item">
-                  <a class="menu nav-link" href="../../contactanos.html">Contáctanos</a>
-              </li>
-          </ul>
-          </div>
+            <a href="../../index.php">
+                <img class="logo navbar-brand" style="margin-right: -2em !important;" src="../../Imagenes/logoGalileo.png"></img>
+            </a>
+            <button class="navbar-toggler" style="color: white !important; border-color: white !important; padding: 2px 3px !important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon-custom navbar-toggler-icon"></span>
+            </button>
+            <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="menu nav-link" href="../../index.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="menu nav-link ocultar-menu" href="../../menu.php">Información</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="menu nav-link" href="../../contactanos.php">Contáctanos</a>
+                    </li>
+                </ul>
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white !important;">
+                                <?php echo $usuario; ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
+                                    <?php if ($rol === 'superadministrador') : ?>
+                                    <li><a class="dropdown-item" href="./añadir/crud.php">Administradores</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <?php else : ?>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <?php endif; ?>
+                                </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 
     <div class="container-fluid padding-abajo">
         <div class="row justify-content-center">
             <div class="banner" style="width: 67% !important; text-align: left !important;">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../../index.html" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="../../dashboard.php" style="text-decoration: none !important; color: #3552A6 !important;">Categorias</a></li>
+                        <li class="breadcrumb-item"><a href="../../index.php" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="../../dashboard.php" style="text-decoration: none !important; color: #3552A6 !important;">Roles</a></li>
                         <li class="breadcrumb-item"><a href="../../administradores.php" style="text-decoration: none !important; color: #3552A6 !important;">Administradores</a></li>
                         <li class="breadcrumb-item"><a href="entidades.php" style="text-decoration: none !important; color: #212529BF !important;">Entidades</a></li>
                     </ol>
@@ -375,8 +403,8 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                     <h5>Links Rápidos</h5>
                     <ul>
                         <li><a href="#" style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Servicios</a></li>
-                        <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Eventos</a></li>
-                        <li><a href="../../contactanos.html"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;"">Contacto</a></li>
+                        <li><a href="#"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Eventos</a></li>
+                        <li><a href="../../contactanos.php"  style="padding-top: 2px !important; text-decoration: none !important; color: white !important;">Contacto</a></li>
                     </ul>
                 </div>
             </div>
