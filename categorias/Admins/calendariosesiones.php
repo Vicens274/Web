@@ -206,12 +206,12 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="#">Rol: <?php echo $rol; ?></a></li>
                                     <?php if ($rol === 'superadministrador') : ?>
-                                    <li><a class="dropdown-item" href="./añadir/crud.php">Administradores</a></li>
+                                    <li><a class="dropdown-item" href="../../añadir/crud.php">Administradores</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <li><a class="dropdown-item" href="../../añadir/logout.php">Cerrar Sesión</a></li>
                                     <?php else : ?>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="./añadir/logout.php">Cerrar Sesión</a></li>
+                                    <li><a class="dropdown-item" href="../../añadir/logout.php">Cerrar Sesión</a></li>
                                     <?php endif; ?>
                                 </ul>
                         </li>

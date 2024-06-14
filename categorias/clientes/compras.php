@@ -185,9 +185,6 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
                         <a class="menu nav-link" aria-current="page" href="../../index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="menu nav-link" href="../../menu.php">Información</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="menu nav-link" href="../../contactanos.php">Contáctanos</a>
                     </li>
                 </ul>

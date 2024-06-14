@@ -184,9 +184,6 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
                         <a class="menu nav-link" aria-current="page" href="../../index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="menu nav-link" href="../../menu.php">Información</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="menu nav-link" href="../../contactanos.php">Contáctanos</a>
                     </li>
                 </ul>
@@ -229,9 +226,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.php" style="text-decoration: none !important; color: #3552A6 !important;">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="../../menu.php" style="text-decoration: none !important; color: #3552A6 !important;">¿Qué eres?</a></li>
-                        <li class="breadcrumb-item"><a href="../../menusuarios.php" style="text-decoration: none !important; color: #3552A6 !important;">Usuarios</a></li>
-                        <li class="breadcrumb-item"><a href="../../usuariogeneral.php" style="text-decoration: none !important; color: #3552A6 !important;">Tienda Pública</a></li>
+                        <li class="breadcrumb-item"><a href="../../usuariogeneral.php" style="text-decoration: none !important; color: #3552A6 !important;">Usuario</a></li>
                         <li class="breadcrumb-item"><a href="./metodopago.php" style="text-decoration: none !important; color: #212529BF !important;">Método de Pago</a></li>
                     </ol>
                 </nav>

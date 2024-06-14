@@ -181,10 +181,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
             <div class="menu-posicion collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="menu nav-link" aria-current="page" href="../../index.php">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="menu nav-link" href="../../menu.php">Información</a>
+                        <a class="menu nav-link" href="../../index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="menu nav-link" href="../../contactanos.php">Contáctanos</a>
