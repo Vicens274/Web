@@ -173,6 +173,8 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
     </style>
 </head>
 <body>
+<div class="wrapper">
+<div class="content">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #3552A6 !important; border-bottom: 2px solid white !important;">
         <div class="container-fluid">
             <a href="../../index.php">
@@ -232,7 +234,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
         </div>
     </div>
 
-    <div class="margenpri accordion container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important;">
+    <div class="margenpri accordion container-fluid1 container-fluid" id="accordionExample" style="--bs-accordion-active-bg: #3552A6 !important; --bs-accordion-btn-focus-box-shadow: #ffffff !important; --bs-accordion-active-color: #ffffff !important; --bs-accordion-btn-color-active: #ffffff !important;">
       <div class="accordion-item">
           <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
@@ -255,6 +257,48 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
           </div>
       </div>
       <div class="accordion-item">
+      <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
+              Pregunta 5
+          </button>
+          <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
+      <div id="collapse7" class="accordion-collapse collapse">
+          <div class="accordion-body">
+              Contenido de la pregunta 1.
+              <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                  <source src="" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          </div>
+      </div>
+  </div>
+  <div class="accordion-item">
+      <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+              Pregunta 5
+          </button>
+          <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
+      <div id="collapse6" class="accordion-collapse collapse">
+          <div class="accordion-body">
+              Contenido de la pregunta 1.
+              <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                  <source src="" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          </div>
+      </div>
+  </div>
+      <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
                 Pregunta 1
@@ -275,6 +319,27 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
             </div>
         </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+              Pregunta 5
+          </button>
+          <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
+      <div id="collapse5" class="accordion-collapse collapse">
+          <div class="accordion-body">
+              Contenido de la pregunta 1.
+              <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                  <source src="" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          </div>
+      </div>
+  </div>
     <div class="accordion-item">
       <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
@@ -388,9 +453,18 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
 
         <style>
           .smaller-image {
-            max-width: 12em; /* Ancho máximo de la imagen */
+            max-width: 20em; /* Ancho máximo de la imagen */
             max-height: 12em; /* Altura máxima de la imagen */
           }
+
+          .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
       </style>
 
     <footer class="footer w-100">
@@ -425,6 +499,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
             </div>
         </div>
     </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>

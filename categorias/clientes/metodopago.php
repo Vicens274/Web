@@ -256,6 +256,27 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
           </div>
       </div>
       <div class="accordion-item">
+      <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+              Pregunta 5
+          </button>
+          <?php if ($rol === 'superadministrador') : ?>
+                <button class="btn-edit btn btn-primary ms-2" style="background-color: #3552A6 !important; border-color: #3552A6 !important;">Editar</button>
+                <button class="btn-delete btn btn-danger ms-2" style="background-color: #db4437 !important; border-color: #db4437 !important;">Eliminar</button>
+            <?php endif; ?>
+        
+        </h2>
+      <div id="collapse5" class="accordion-collapse collapse">
+          <div class="accordion-body">
+              Contenido de la pregunta 1.
+              <video controls style="border: 2px solid #3552A6 !important; border-radius: 5px !important; width: 500px !important; display: block !important; margin-left: 0 !important;">
+                  <source src="" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          </div>
+      </div>
+  </div>
+      <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
                 Pregunta 1
@@ -412,7 +433,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
 
         <style>
           .smaller-image {
-            max-width: 12em; /* Ancho máximo de la imagen */
+            max-width: 20em; /* Ancho máximo de la imagen */
             max-height: 12em; /* Altura máxima de la imagen */
           }
 

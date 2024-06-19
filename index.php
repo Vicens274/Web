@@ -11,7 +11,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki Galileo</title>
+    <title>Wiki</title>
     <link rel="stylesheet" href="./estilo.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -149,7 +149,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
         
         <style>
         .smaller-image {
-          max-width: 12em;
+          max-width: 20em;
           max-height: 12em;
         }
         </style>
@@ -157,7 +157,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
       </div>
         <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
             <div class="row-cols-sm-2">
-             <span class="">© 2024 Powered by Saudeter</span>
+            <span class="">© 2024 Powered by Learn4You</span>
             </div>
             <div class="row-cols-sm-2">
               <i class="bi bi-facebook pe-2"></i>

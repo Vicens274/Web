@@ -190,13 +190,13 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
         </div>
 
         <style>
-            .smaller-image {
-              max-width: 12em; /* Ancho máximo de la imagen */
-              max-height: 12em; /* Altura máxima de la imagen */
-            }
+        .smaller-image {
+          max-width: 20em;
+          max-height: 12em;
+        }
         </style>
 
-        <div class="container text-center" style="padding-top: 15px !important; border-top: 2px solid white !important;">
+        <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
             <div class="row-cols-sm-2">
              <span class="">© 2024 Powered by Saudeter</span>
             </div>

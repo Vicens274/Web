@@ -98,7 +98,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
     </div>
 </div>   
 
-<div class="wrapper">
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -137,7 +137,6 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
                                             echo "<td>" . $row['Rol'] . "</td>";
 
                                             echo "<td>";
-                                                echo '<a href="update.php?id='. $row['Usuario'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                                 echo '<a href="delete.php?id='. $row['Usuario'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                             echo "</td>";
                                         echo "</tr>";
@@ -187,7 +186,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
 
       <style>
           .smaller-image {
-            max-width: 12em; /* Ancho máximo de la imagen */
+            max-width: 20em; /* Ancho máximo de la imagen */
             max-height: 12em; /* Altura máxima de la imagen */
           }
       </style>

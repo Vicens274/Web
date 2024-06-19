@@ -174,7 +174,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
 
       <style>
           .smaller-image {
-            max-width: 12em; /* Ancho máximo de la imagen */
+            max-width: 20em; /* Ancho máximo de la imagen */
             max-height: 12em; /* Altura máxima de la imagen */
           }
       </style>

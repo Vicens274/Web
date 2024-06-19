@@ -16,7 +16,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administradores</title>
+    <title>Taquilleros</title>
     <link rel="stylesheet" href="./categorias.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -108,36 +108,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
         <div class="row justify-content-center"  style="--bs-gutter-x: 0 !important;">
             <div class="col-12 col-md-9" id="sectionContainer">
                 <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" id="sortable">
-                    <div class="col">
-                        <a href="./categorias/Admins/calendariosesiones.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Calendario de Sesiones</h5>
-                                <p class="card-text">Mantente al tanto de las sesiones, eventos y fechas importantes con nuestro calendario integrado.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="./categorias/Admins/escaner.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Escáner</h5>
-                                <p class="card-text">Explora y busca rápidamente información relevante con nuestra herramienta de escaneo avanzada.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="./categorias/Admins/ventas.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Ventas</h5>
-                                <p class="card-text">Controla y administra todas tus ventas y su estado desde nuestro panel para administradores.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
+                    
                     
                 </div>
             </div>
@@ -227,10 +198,10 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
         </div>
 
         <style>
-            .smaller-image {
-              max-width: 12em; /* Ancho máximo de la imagen */
-              max-height: 12em; /* Altura máxima de la imagen */
-            }
+        .smaller-image {
+          max-width: 20em;
+          max-height: 12em;
+        }
         </style>
 
         <div class="container text-center" style="padding-top: 15px !important; border-top: 2px solid white !important;">

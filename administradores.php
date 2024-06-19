@@ -107,56 +107,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
         <div class="row justify-content-center"  style="--bs-gutter-x: 0 !important;">
             <div class="col-12 col-md-9" id="sectionContainer">
                 <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" id="sortable">
-                    <div class="col">
-                        <a href="./categorias/Admins/primerospasos.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Primeros Pasos - Galileo</h5>
-                                <p class="card-text">Un recorrido especializado para comenzar tu experiencia con Galileo, nuestra plataforma emblemática.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="./categorias/Admins/productos.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Productos</h5>
-                                <p class="card-text">Crea, activa y vende tus servicios o productos a los usuarios.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="./categorias/Admins/estadisticas.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Estadísticas</h5>
-                                <p class="card-text">Accede a datos detallados y análisis para tomar decisiones informadas.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="./categorias/Admins/entidades.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Entidades</h5>
-                                <p class="card-text">Controla y modifica tu propia entidad.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                   <div class="col">
-                        <a href="./categorias/Admins/reservar.php" style="text-decoration: none !important;">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Reservar</h5>
-                                <p class="card-text">Asegura tu lugar para eventos, citas o servicios reservables con nuestra función de reserva integrada.</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
                  <?php if ($rol === 'superadministrador') : ?>
@@ -243,10 +194,10 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
         </div>
 
         <style>
-            .smaller-image {
-              max-width: 12em; /* Ancho máximo de la imagen */
-              max-height: 12em; /* Altura máxima de la image */
-            }
+        .smaller-image {
+          max-width: 20em;
+          max-height: 12em;
+        }
         </style>
 
         <div class="container text-center " style="padding-top: 15px !important; border-top: 2px solid white !important;">

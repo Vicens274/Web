@@ -122,6 +122,9 @@ body {
     .pad-abajo {
         padding-bottom: 1.5em !important;
     }
+    .container-fluid1 {
+        width: 90% !important;
+    }
 }
 
 .margen-arriba {

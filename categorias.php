@@ -11,7 +11,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administradores</title>
+    <title>Wiki</title>
     <link rel="stylesheet" href="./contactanos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -188,10 +188,10 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
         </div>
         
         <style>
-            .smaller-image {
-              max-width: 12em; /* Ancho máximo de la imagen */
-              max-height: 12em; /* Altura máxima de la imagen */
-            }
+        .smaller-image {
+          max-width: 20em;
+          max-height: 12em;
+        }
         </style>
 
         <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
