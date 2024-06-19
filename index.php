@@ -134,7 +134,7 @@ $usuario = $is_logged_in ? $_SESSION['username'] : '';
                 </div>
                 <div class="col-sm-4 pad-abajo">
                     <h5>¿Quiénes somos?</h5>
-                    <p>Somos Suadeter, una aplicación dedicada a la organización de eventos y servicios deportivos. Nuestra misión es facilitar la planificación y gestión de actividades deportivas para individuos y organizaciones.</p>
+                    <p>Learn4You, una paginas dedicada a la organización de eventos y servicios deportivos. Nuestra misión es facilitar la planificación y gestión de actividades deportivas para individuos y organizaciones.</p>
                 </div>
                 <div class="col-sm-4 pad-abajo">
                     <h5>Links Rápidos</h5>

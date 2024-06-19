@@ -3,8 +3,8 @@
 
 // Configuración de la conexión a la base de datos
 $host = 'localhost';
-$db_name = 'id22244361_vicente';
-$username = 'id22244361_vicente';
+$db_name = 'id22057369_vicente';
+$username = 'id22057369_vicente';
 $password = '#Calvar96';
 
 try {

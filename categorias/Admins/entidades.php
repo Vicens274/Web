@@ -460,7 +460,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
                 </div>
                 <div class="col-sm-4 pad-abajo">
                     <h5>¿Quiénes somos?</h5>
-                    <p>Somos Suadeter, una aplicación dedicada a la organización de eventos y servicios deportivos. Nuestra misión es facilitar la planificación y gestión de actividades deportivas para individuos y organizaciones.</p>
+                    <p>Learn4You, una pagina dedicada a la organización de eventos y servicios deportivos. Nuestra misión es facilitar la planificación y gestión de actividades deportivas para individuos y organizaciones.</p>
                 </div>
                 <div class="col-sm-4 pad-abajo">
                     <h5>Links Rápidos</h5>
@@ -483,7 +483,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Obtener
       
         <div class="container text-center pb-5" style="padding-top: 15px !important; border-top: 2px solid white !important;">
             <div class="row-cols-sm-2">
-             <span class="">© 2024 Powered by Saudeter</span>
+             <span class="">© 2024 Powered by Learn4You</span>
             </div>
             <div class="row-cols-sm-2">
               <i class="bi bi-facebook pe-2"></i>
